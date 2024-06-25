@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Lecture 01</title>
+    <title>Lecture 01 - Regression Discontinuity Designs in Development Economics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Bruno Conte" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -9,53 +9,68 @@
   </head>
   <body>
     <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 01 - Regression Discontinuity Designs<br>in Development Economics
+]
+.subtitle[
+## Theory and Practice
+]
+.author[
+### Bruno Conte
+]
+.institute[
+### Barcelona School of Economics
+]
+.date[
+### 08/Jul/2024
+]
+
+---
 
 
 
-
-&lt;!-- class: inverse, center, title-slide, middle --&gt;
-class: center, middle
 
 &lt;style&gt;
-.title-slide .remark-slide-number {
-  display: none;
-}
+g { color: rgb(0,130,155) }
+o { color: rgb(240,138,33) }
 &lt;/style&gt;
 
-# Lecture 01: Geospatial Data Sciences
 
-# and Economic Spatial Models
+# RDD in Development Economics: This Course
 
-## &lt;img src="https://brunoconteleite.github.io/08-geospatial-ds-bse/figs/bse_primary_logo.png" style="width: 35%" /&gt;&lt;br&gt;&lt;br&gt;Bruno Conte
+- Introduce conceptual and practical aspects of &lt;o&gt;**regression discontinuity designs**&lt;/o&gt;
+  
+  - What are regression discontinuity designs (RDD)?
+  
+  - How is it used in &lt;span style="color: rgb(0,130,155)"&gt;development economics&lt;/span&gt; research?
+  
+  - What is the best practice, and which tools do we need to work with it?
 
-## 08/Jul/2024
-
----
-
-# Geospatial Data and Spatial Models: This Course
-
-- Introduce students to conceptual and practical aspects of &lt;span style="color: rgb(0,130,155)"&gt;spatial data&lt;/span&gt;
-
-  - What is spatial (geographical) data?
-  - How is it used in &lt;span style="color: rgb(0,130,155)"&gt;research in economics&lt;/span&gt; or business applications?
-  - Which tools (i.e. computer systems/languages) do we need to work with it?
-    
 --
-    
-- Main goal: &lt;span style="color: rgb(177,148,40)"&gt;**concepts + tools**&lt;/span&gt; = practice with real-world data
-    - Concepts: types and formats of spatial data + &lt;span style="color: rgb(0,130,155)"&gt;economic spatial models&lt;/span&gt;
-    - Tools: programming in ``R`` and ``RStudio``
-    
---
-    
-- Course's **main philosophy**: a course by an &lt;span style="color: rgb(174,77,41)"&gt;economist working with spatial data&lt;/span&gt;
-    - Rather than a course by a spatial data's specialist!
+
+- Main goal: &lt;u&gt;concepts + tools&lt;/u&gt; = practice with real-world applications
+    - Concepts: theory behind causal inference and RDD assumptions
+    - Tools: practical applications with `Stata` and/or ``R/RStudio``
     
 ---
 
-# Geospatial Data and Spatial Models: This Course
+# RDD in Development Economics: This Course
+    
+- &lt;u&gt;Main philosophy&lt;/u&gt;: a course by a development economist interested in &lt;g&gt;policy evaluation&lt;/g&gt;
 
-&lt;u&gt;This course:&lt;/u&gt; how to use spatial data to empirically answer &lt;span style="color: rgb(174,77,41)"&gt;research questions of our interest&lt;/span&gt;.
+  - Rather than a course by an econometrician/statistician!
+
+- This course benefitted from many people
+
+  - Joan Llull, Vincenzo Scrutinio, Diogo Britto, Leandro Magalhães, ...
+
+---
+
+# RDD in Development Economics: This Course
+
+&lt;u&gt;This course:&lt;/u&gt; how to use RDD to empirically answer &lt;o&gt;**research questions of our interest**&lt;/o&gt;.
 
 .pull-left[
 **You will learn**
@@ -85,30 +100,431 @@ class: center, middle
 
 ---
 
-# Geospatial Data and Spatial Models: This Course
+# RDD in Development Economics: This Course
+
+## Main References
+
+1. Angrist, J.D. and Pischke, J.S., 2009. Mostly harmless econometrics: An empiricist's companion. Princeton university press.
+
+2. Lee, D.S. and Lemieux, T., 2010. Regression discontinuity designs in economics. *Journal of economic literature*, 48(2), pp.281-355.
+
+3. Cattaneo, M.D., Idrobo, N. and Titiunik, R., 2019. A practical introduction to regression discontinuity designs: Foundations. *Cambridge University Press*.
+
+---
+
+# RDD in Development Economics: Schedule
+
+1. Introduction to treatment effects and RDD &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[08/Jul/2024]**
+    - Potential outcomes, treatment outcomes, and selection bias
+    - Introduction to RDD and survey of applications &lt;br&gt; &lt;br&gt;
+
+2. Sharp Regression Discontinuities &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[09/Jul/2024]**
+
+3. Fuzzy Regression Discontinuities &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[10/Jul/2024]**
+
+4. Spatial Regression Discontinuities &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[11/Jul/2024]**&lt;br&gt; &lt;br&gt;
+
+5. Additional RDD Methods &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[12/Jul/2024]**
+
+---
+
+# RDD in Development Economics: Logistics
+
+- Lectures: every Mon to Fri from 11:30-13:30
+    - 1 hour + (optional) 10' break + 45 mins
+
+- Course material: [&lt;u&gt;webpage&lt;/u&gt;](https://brunoconteleite.github.io/08-geospatial-ds-bse/) and [&lt;u&gt;syllabus&lt;/u&gt;](https://www.dropbox.com/scl/fi/eig4vhhsirxx85dqex656/23dm017-geospatial-data-science-and-economic.pdf?rlkey=5grrq1v9icj8pjl031jcrsvg5&amp;raw=1)
+    
+- Potentially mixed backgroud: **be patient**!
+
+## Practical sessions:
+
+- Every Mon to Fri from 16:15-17:45
+
+- Your own computer + `Stata` and/or `RStudio` (we will set it up together)
+
+- Any &lt;o&gt;**questions**&lt;/o&gt;?
+
+---
+
+# RDD in Development Economics: About us
+
+## Instructor: Bruno Conte
+
+- Assistant Professor of Economics, Universitat Pompeu Fabra since Jan 2024
+
+  - Previous positions: Università di Bologna, World Bank, IGC/LSE
+
+- Research interests: Development and environment economics
+
+  - Tools: Causal inference, international trade, and spatial economics
+
+- Approach: &lt;o&gt;theory + empirics&lt;/o&gt; = answers to policy-relevant research questions
+
+--
+
+## What about you?
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Getting started: why causal inference for
+
+# development economics?
+]
+
+---
+
+# Intro: Why Causal Inference for Development?
+
+Economists use **causal inference** to give empirical content to economic relations
+
+&gt; *&lt;g&gt;Causal inference&lt;/g&gt; consists of establishing a cause-effect relationship between two economic outcomes. It aims at answering "what if" type of questions*
+
+It is an important tool for &lt;o&gt;**policy evaluation**&lt;/o&gt;, especially in low-income, developing contexts
+
+- Do micro-credit programs foster development in rural economies?
+
+- What are the consequences of cash transfer policies in developing settings?
+
+- Can family-targetted policies attenuate gender inequality and/or intimate violence?
+
+Governments and institutions invest billions every year in such (and other) policies
+
+- Causal inference tools can quantify their effectiveness (cost-benefit)
+
+---
+
+# Causal Inference: Structural versus Treatment Effects
+
+&gt; *The &lt;o&gt;structural approach&lt;/o&gt; fits theory-based (economic) models of individual behaviour to data for policy evaluation (through simulations)*
+
+- **Main advantage**: versatility
+
+  - Use structural models as a "mini-lab" for counterfactual simulations (ex-ante and -post)
+
+- Main limitations: &lt;g&gt;stylized assumptions&lt;/g&gt;, complexity, and computational cost
+
+--
+
+- &lt;u&gt;Examples&lt;/u&gt;:
+
+  - Income transfers and intimate violence (Ramos, 2016)
+
+  - School construction and rural-urban market outcomes (Hsiao, 2023)
+
+  - Rural insurance and agricultural productivity (Pietrobon, 2024)
+
+---
+
+# Causal Inference: Structural versus Treatment Effects
+
+This course focus on the &lt;o&gt;**treatment effects**&lt;/o&gt; approach
+
+&gt; *Treatment effects evaluate the ex-post impact of an existing policy by comparing targetted (treatment) individuals with untargetted (control) ones*
+
+- Main advantage: transparency (it is comparison exercise that needs little assumptions)
+
+  - It revolutionized evidence-based economics (Angrist and Pischke, 2010)
+
+- Main limitations: limited counterfactual answers, external validity and policy-invariance
+
+--
+
+- &lt;u&gt;Examples&lt;/u&gt; (see Michal Kremer, Esther Duflo, Abhijit Banerjee, ...)
+
+  - Minimum wages policies and employment (Card and Krueger, 1993)
+  
+  - School construction and rural-urban market outcomes (Duflo, 2001)
+  
+  - Income transfers and development (Angelucci and De Giorgi, 2009)
+
+---
+
+# Treatment Effects and Causal Inference: Crucial Questions
+
+Again, treatment effects = comparison of outcome distributions (treated versus control)
+
+&gt; *Main challenge for causal interpretation: ensure that the &lt;g&gt;control group is a reasonable counterfactual&lt;/g&gt; for the outcomes of the treatment group in the absence of treatment*
+
+Causal inference tools overcome this by addressing the following questions:
+
+- What is the causal relation of interest?
+
+- Which &lt;o&gt;research design&lt;/o&gt; (or identification strategy) captures the causal effect of interest?
+
+  - Randomized control trials, instrumental variables, regression discontinuities, ...
+
+- What is the ideal inference method?
+
+  - Linear regressions, GMM, ...
+  
+---
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Basics of Treatment Effects:
+
+# Potential Outcomes and Selection Bias
+]
+---
+
+# Treatment Effects, Potential Outcomes, and Selection Bias
+
+Consider a population of `\(i\)` individuals potentially treated by a policy. Then, define:
+
+- `\(Y_{1i} \equiv\)` individual `\(i\)`'s outcome if treated, and `\(Y_{0i}\)` otherwise
+
+- `\(D_i \equiv\)` treatment indicator (i.e., equal to one if `\(i\)` is treated)
+
+`\((Y_{1i}, Y_{0i})\)` are (unobserved) **potential outcomes** that relate to observed outcomes `\(Y_i\)` as
+`$$Y_i = D_i Y_{1i} + (1- D_i) Y_{0i}$$`
+Hence, it is impossible to infer *individual treatment effects*
+`$$\alpha_i = Y_{1i} - Y_{0i}$$`
+
+---
+
+# Treatment Effects, Potential Outcomes, and Selection Bias
+
+Hence, we focus on infering different **features of the distribution** of `\(\alpha_i\)`
+
+- &lt;u&gt;Average treatment effect (ATE)&lt;/u&gt;:
+`$$\alpha_{ATE} = \mathbb{E}\left[ Y_{1i} - Y_{0i} \right]$$`
+- &lt;u&gt;Average treatment on the treated (ATT)&lt;/u&gt;:
+`$$\alpha_{ATT} = \mathbb{E}\left[ Y_{1i} - Y_{0i} | D_i = 1 \right]$$`
+
+These (theoretical) causal effects have different (policy) implications
+
+- Does the treated group `\((D_i = 1)\)` &lt;g&gt;differ systematically&lt;/g&gt; from the control?
+
+- Does that affect the policy implications of the `\(\alpha_{ATT}\)` effects?
+
+---
+
+# Treatment Effects, Potential Outcomes, and Selection Bias
+
+In practice, sample comparisons are made with &lt;g&gt;observed outcomes&lt;/g&gt; `\(Y_i\)`. Define
+`$$\beta^S = \bar{Y}_T - \bar{Y}_C = \frac{1}{N_1} \sum_{i = 1}^N D_i Y_i - \frac{1}{N_0} \sum_{i = 1}^N (1-D_i) Y_i$$`
+as the (sample) comparsion between treated/control averages and the *population counterpart*
+`$$\beta = \mathbb{E}\left[ Y_i | D_i = 1 \right] - \mathbb{E}\left[ Y_i | D_i = 0 \right]$$`
+--
+One can show that `\(\beta\)` can be rewritten as
+`$$\beta=\underbrace{\mathbb{E}\left[ Y_{1i} - Y_{0i} | D_i = 1 \right]}_{\alpha_{ATT}} + \underbrace{\mathbb{E}\left[ Y_{0i} | D_i = 1 \right] - \mathbb{E}\left[ Y_{0i} | D_i = 0 \right]}_{\text{selection bias}}$$`
+
+---
+
+# Treatment Effects, Potential Outcomes, and Selection Bias
+
+&gt; *&lt;g&gt;Selection bias&lt;/g&gt; is the systematic differences between treatment and control groups in terms of potential outcomes in the absence of treatment*
+
+&lt;u&gt;Motivating examples&lt;/u&gt;:
+
+- Does access to schools improve labor market outcomes (Duflo, 2001)?
+
+  - Which type of individuals enroll in university?
+  
+- Does rural microfinance affect household-level consumption smoothing, asset holdings, or occupational mobility? (Kaboski and Townsend, 2012; Banerjee et al., 2015)?
+
+  - Which villages are covered by (micro) financial institutions?
+  
+- ...
+
+How to identify `\(\alpha_{ATT}\)` with `\(\beta\)` (i.e., with a comparison of sample averages)?
+
+---
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Identification of Treatment Effects:
+
+# Basic Assumptions
+]
+---
+
+# Assumptions for Identification: Independence
+  
+Obviously, in the absence of selection bias, `\(\beta = \alpha_{ATT} \text{ (and eventually} = \alpha_{ATE} \text{)}\)`
+
+- Which are the needed identification assumptions?
+
+Simplest case: &lt;g&gt;**independence of potential outcomes**&lt;/g&gt;
+`$$(Y_{1i}, Y_{0i}) \quad \bot \quad D_i \quad \forall i$$`
+Formally, it is represented by the equivalence on cummulative distributions `\(F\)`
+`$$F(Y_{1i} | D_i = 1) = F(Y_{1i}) \\ F(Y_{0i} | D_i = 0) = F(Y_{0i})$$`
+Under this assumption, `\(\alpha_{ATE} = \alpha_{ATT} = \beta \rightarrow \beta^S\)` is an unbiased estimate of `\(\alpha_{ATE}\)`
+
+---
+
+# Assumptions for Identification: Independence
+
+&lt;o&gt;Randomized Control Trials&lt;/o&gt; ensure unconditional independence (see Banerjee, Duflo, Kremer)
+
+&lt;u&gt;Illustration&lt;/u&gt;: Angelucci and Di Giorgi (2009) "*How Do Cash Transfers Affect [..] Consumption?*"
+
+.center[&lt;img src="figs/angelucci1.png" style="width: 75%" /&gt;]
+
+---
+
+# Assumptions for Identification: Conditional Independence
+
+Another case is the &lt;g&gt;**conditional independence assumption**&lt;/g&gt;
+`$$(Y_{1i}, Y_{0i}) \quad \bot \quad D_i | X_i \quad \forall i,$$`
+where `\(X_i\)` is a vector of covariates.  Formally, conditional independence is equivalent to
+`$$F(Y_{ji} | X_i) = F(Y_{ji} | D_i = j, X_i) = F(Y_{i} | D_i = j, X_i) \quad \text{for } j = 0,1$$`
+Here, "controlling for `\(X_i\)`" identifies `\(\alpha_{ATE}\)`:
+`$$\alpha_{ATE} = \mathbb{E} \left[ Y_{1i} - Y_{0i} \right] = \int \left( \mathbb{E} \left[ Y_{i} | D_i = 1, X_i \right] - \mathbb{E} \left[ Y_{i} | D_i = 0, X_i \right] \right) dF(X_i)$$`
+This setting is also know as matching: contrasting treated and controls for each value `\(X_i\)`
+
+- Usual approach in &lt;o&gt;natural experiments&lt;/o&gt; (quasi-random variation in `\(D_i\)`)
+
+---
+
+# Assumptions for Identification: Lack of Independence
+
+Finally, we might face the situation where our policy `\(D_i\)` is not (conditionally) exogenous
+`$$(Y_{1i}, Y_{0i}) \quad \not\perp \quad D_i | X_i \quad \forall i,$$`
+In this case, we need a `\(Z_i\)` variable that does satisfy the &lt;g&gt;independence assumption&lt;/g&gt;
+`$$(Y_{1i}, Y_{0i}) \quad \perp \quad Z_i | X_i \quad \forall i$$`
+and also satisfies the &lt;g&gt;relevance condition&lt;/g&gt;
+`$$Z_i \quad \not\perp \quad D_i | X_i \quad \forall i,$$`
+--
+Here, `\(Z_i\)` is an &lt;o&gt;**intrumental variable**&lt;/o&gt; that allows us to identify treatment effects for a subset of the population, know as the *local treatment average effects*
+
+- This will be important for fuzzy regression descontinuity designs later on
+
+---
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Treatment Effects and Linear Regressions
+]
+---
+
+# Treatment Effects and Linear Regressions
+
+The potential outcomes notation has a close link with &lt;g&gt;linear regression models&lt;/g&gt;
+`\begin{align}
+Y_i &amp;= D_i Y_{1i} + (1-D_i) Y_{0i} \equiv \underbrace{\mathbb{E} \left[ Y_{0i} \right]}_{\beta_0} + \underbrace{\left( Y_{1i} - Y_{0i} \right)}_{\beta_i} D_i + \underbrace{Y_{0i} - \mathbb{E} \left[ Y_{0i} \right]}_{U_i}
+\end{align}`
+An OLS regression estimates `\(\mathbb{E} \left[ \bar{Y}_T - \bar{Y}_C\right] = \mathbb{E} \left[ Y_{1i} - Y_{0i} \right] = \alpha_{ATE}\)` as long as `\((Y_i, D_i) \not\perp U_i\)`
+
+--
+
+This is a close analoge to selection bias. To see that, suppose
+`$$Y_i := \beta_0 + \beta D_i + \gamma C_i + U_i \equiv \beta_0 + \beta D_i + \bar{U}_i$$`
+One can show that the unconditional OLS estimate `\(\hat{\beta}\)` has an &lt;o&gt;omitted variable bias&lt;/o&gt;
+`$$\hat{\beta} \overset{p}{\to} \beta + \gamma \frac{var(C_i,D_i)}{var(D_i)} \neq \beta$$`
+
+---
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Taking stock: why Treatment Effects
+
+# for RD Designs in Development Economics?
+]
+---
+
+# Taking Stock: Treatment Effects and RDD
+
+This course is about the &lt;g&gt;potentials and applications of RDD&lt;/g&gt; in development economics
+
+- How does it relate to treatment effects and all the assumptions above?
+
+In developing settings, policies or experiments such that `\((Y_{1i}, Y_{0i}) \perp D_i | X_i\)` &lt;o&gt;are rare (or costly)&lt;/o&gt;
+
+- It is also hard to find the right `\(Z_i\)` instrument (again, more on that later)
+`$$\quad$$`
+
+--
+
+Regression discontinuities can be **an alternative in these settings**
+
+- It exploits the fact that policy elegibility is usually &lt;g&gt;threshold-based&lt;/g&gt;
+
+- This creates a (quasi-) natural experiment around the threshold
+
+  - Just above/below, the threshold individuals should be similar
+
+---
+
+# RDD and Treatment Effects
+
+The RD concept goes back to Psycology (Cook and Campbell, 1979)
+
+From 1990s onwards, part of the credibility revolution (Angrist and Pischke, 2010) as a versatile tool for causal inference
+
+- "Explosion" of RD studies (causally) evaluating policies in economics
+
+&gt; *Lee and Lemieux (2010) "&lt;g&gt;Regression discontinuity designs in economics&lt;/g&gt;", Journal of Economic Literature*
+
+Comprehensive survey on (by then, but still) state-of-art RDD methods and applications
+
+---
+
+# Lee and Lemieux (2010): RDD Examples
+
+.center[&lt;img src="figs/lee1.png" style="width: 75%" /&gt;]
+
+---
+
+.center[&lt;img src="figs/lee7.png" style="width: 75%" /&gt;]
+.center[&lt;img src="figs/lee2.png" style="width: 75%" /&gt;]
+
+---
+
+.center[&lt;img src="figs/lee7.png" style="width: 75%" /&gt;]
+.center[&lt;img src="figs/lee3.png" style="width: 75%" /&gt;]
+
+---
+
+.center[&lt;img src="figs/lee7.png" style="width: 75%" /&gt;]
+.center[&lt;img src="figs/lee4.png" style="width: 75%" /&gt;]
+
+---
+
+.center[&lt;img src="figs/lee7.png" style="width: 75%" /&gt;]
+.center[&lt;img src="figs/lee5.png" style="width: 75%" /&gt;]
+.center[&lt;img src="figs/lee6.png" style="width: 75%" /&gt;]
+
+
+---
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# References
+]
+---
 
 ## References
 
-1. Donaldson, D. and Storeygard, A., 2016. The view from above: Applications of satellite data in economics. *Journal of Economic Perspectives*, *30(4)*, pp.171-98.
+- Angelucci, M. and De Giorgi, G., 2009. Indirect effects of an aid program: how do cash transfers affect ineligibles' consumption?. *American economic review*, 99(1), pp.486-508.
 
-2. Lovelace, R., Nowosad, J. and Muenchow, J., 2019. **Geocomputation with R**. Chapman and Hall/CRC.
+- Angrist, J.D. and Pischke, J.S., 2010. The credibility revolution in empirical economics: How better research design is taking the con out of econometrics. *Journal of economic perspectives*, 24(2), pp.3-30.
 
-3. Pebesma, E., 2018. Simple Features for R: Standardized Support for Spatial Vector Data. The R Journal 10 (1), 439-446, https://doi.org/10.32614/RJ-2018-009
+- Banerjee, A., Duflo, E., Glennerster, R. and Kinnan, C., 2015. The miracle of microfinance? Evidence from a randomized evaluation. American economic journal: Applied economics, 7(1), pp.22-53.
 
-4. Wickham, H. and Grolemund, G., 2016. R for data science: import, tidy, transform, visualize, and model data. " O'Reilly Media, Inc.".
+- Card, D. and Krueger, A.B., 1993. Minimum wages and employment: A case study of the fast food industry in New Jersey and Pennsylvania.
+
+- Campbell, D.T. and Cook, T.D., 1979. Quasi-experimentation. Chicago, IL: *Rand Mc-Nally*, 1(1), pp.1-384.
 
 ---
 
 # References
 
-- Dell, M., 2010. The persistent effects of Peru's mining mita. *Econometrica*, *78(6)*, pp.1863-1903.
+- Hirano, K., Imbens, G.W. and Ridder, G., 2003. Efficient estimation of average treatment effects using the estimated propensity score. *Econometrica*, 71(4), pp.1161-1189.
 
-- Donaldson, D., 2018. Railroads of the Raj: Estimating the impact of transportation infrastructure. *American Economic Review*, *108(4-5)*, pp.899-934.
+- Hsiao, A., 2023. Educational Investment in Spatial Equilibrium: Evidence from Indonesia. Working Paper.
 
-- Henderson, J.V., Storeygard, A. and Deichmann, U., 2017. Has climate change driven urbanization in Africa?. *Journal of development economics*, *124*, pp.60-82.
+- Kaboski, J.P. and Townsend, R.M., 2012. The impact of credit on village economies. *American Economic Journal: Applied Economics*, 4(2), pp.98-133.
 
-- Snow, J., 1856. On the mode of communication of cholera. *Edinburgh medical journal*, *1(7)*, p.668.
+- Lee, D.S. and Lemieux, T., 2010. Regression discontinuity designs in economics. Journal of economic literature, 48(2), pp.281-355.
 
+- Pitt, M.M. and Khandker, S.R., 1998. The impact of group-based credit programs on poor households in Bangladesh: Does the gender of participants matter?. *Journal of political economy*, 106(5), pp.958-996.
+
+- Pietrobon, D., 2024. The dual role of insurance in input use: Mitigating risk versus curtailing incentives. *Journal of Development Economics*, 166, p.103203.
+
+---
+
+# References
+
+- Ramos, A., 2016. Household decision making with violence: Implications for conditional cash transfer programs. *Working Paper*
 
 
 
