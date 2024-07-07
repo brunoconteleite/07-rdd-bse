@@ -1,7 +1,7 @@
 <img style="float: right;width: 25%" src="figs/bsesummer2.png">
 
 # Regression Discontinuity Designs<br>in Development Economics
-[Bruno Conte](https://brunoconteleite.github.io/) | [bruno.conte@bse.eu](mailto:bruno.conte@bse.eu) | Course GitHub repo [here](https://brunoconteleite.github.io/07-rdd-bse/)<br>
+[Bruno Conte](https://brunoconteleite.github.io/) | [bruno.conte@bse.eu](mailto:bruno.conte@bse.eu) | Course GitHub repo [here](https://github.com/brunoconteleite/07-rdd-bse)<br>
 Barcelona School of Economics
  
 ### Day 1. Introduction to RDD, applications in economics, and brush up

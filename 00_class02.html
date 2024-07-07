@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 02 - Regression Discontinuity Designs in Development Economics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bruno Conte" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer-bse.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 02 - Regression Discontinuity Designs<br>in Development Economics
+]
+.subtitle[
+## Theory and Practice
+]
+.author[
+### Bruno Conte
+]
+.institute[
+### Barcelona School of Economics
+]
+.date[
+### 09/Jul/2024
+]
+
+---
+
+
+
+
+&lt;style&gt;
+g { color: rgb(0,130,155) }
+o { color: rgb(240,138,33) }
+&lt;/style&gt;
+
+
+# RDD in Development Economics: Schedule
+
+1. ~~Introduction to treatment effects and RDD~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[08/Jul/2024]**
+
+2. Sharp RD Design (Basics) &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[09/Jul/2024]**
+    - RD Basics: continuity-based, sharp RD approach
+    - RD plots and (local polynomial) estimation &lt;br&gt; &lt;br&gt;
+
+3. Sharp RD Design (Extensions) + Fuzzy RD Design &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[10/Jul/2024]**
+
+4. Spatial Regression Discontinuities &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[11/Jul/2024]**&lt;br&gt; &lt;br&gt;
+
+5. Additional RDD Methods &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[12/Jul/2024]**
+
+---
+
+# Main References for this Class
+
+1. Cattaneo, M.D., Idrobo, N. and Titiunik, R., 2019. &lt;g&gt;A practical introduction to regression discontinuity designs: Foundations&lt;/g&gt;. *Cambridge University Press*.
+    - Chapters 1 to 4
+
+2. Lee, D.S. and Lemieux, T., 2010. Regression discontinuity designs in economics. *Journal of economic literature*, 48(2), pp.281-355.
+
+
+---
+
+# Treatment Effects and RD Designs
+
+&lt;u&gt;**This course**&lt;/u&gt;: &lt;o&gt;potentials and applications of RDD&lt;/o&gt; in development economics
+
+- Policies/experiments `\(T_i\)` such that `\(Y_{i}(1), Y_{i}(0) \perp T_i | X_i\)` are rare, costly, and/or unethical
+
+  - It is also hard to find the right `\(D_i\)` instrument
+
+&lt;br&gt;
+
+&lt;u&gt;**Regression discontinuities**&lt;/u&gt;: alternative in these settings
+
+- Policy elegibility is usually &lt;g&gt;threshold-based&lt;/g&gt;
+
+  - This creates a (quasi-) natural experiment around the threshold
+
+  - Just above/below, the threshold individuals should be similar
+
+---
+
+# Sharp RD Basics: Introduction
+
+Consider an treatment `\(T_i\)` such that `\(Y_i(1), Y_i(0) \not\perp T_i | X_i\)` (selection bias)
+
+However, if &lt;g&gt;threshold-based&lt;/g&gt;, the policy creates a quasi-experiment
+`$$\begin{equation}T_i=\begin{cases}1 \text{ if } X_i \geq c \\ 0 \text{ if } X_i &lt; c\end{cases}\end{equation}$$`
+Intuition: natural experiment around the threshold `\(c\)` (comparable individuals above/below)
+- Social Benefits conditional on family income
+- Test-based public recruiting (Universities, public employment, etc)
+- Poverty index-based development policies (e.g., microcredit)
+
+&lt;u&gt;**Sharp RD**&lt;/u&gt;: `\(T_i\)` is a binary, deterministic function of `\(X_i\)`
+
+---
+
+# Sharp RD Basics: Introduction
+
+Canonical example:
+&gt; *Lee, D.S., 2008. Randomized experiments from non-random selection in US House elections. &lt;g&gt;Journal of Econometrics&lt;/g&gt;, 142(2), pp.675-697*
+
+How does (US) party incumbency affects performance in future elections?
+
+- What is the effect of winning a seat in subsequent elections?
+
+- US House of Representatives: &lt;o&gt;majority rule&lt;/o&gt; between Democratic or Republican
+
+**Intuition**: in close elections, candidate is (quasi-) randomly assigned
+
+---
+
+.center[&lt;img src="figs/lee2008_01.png" style="width: 70%" /&gt;]
+
+---
+
+# Sharp RD Basics: Introduction
+
+Example 2:
+&gt; *Britto, D.G., 2022. The employment effects of lump-sum and contingent job insurance policies: Evidence from Brazil. &lt;g&gt;Review of Economics and Statistics&lt;/g&gt;, 104(3), pp.465-482.*
+
+How do unemployed workers react to cash-on hand?
+
+- What is the effect of unemployment benefits on labor search behaviour?
+
+- In Brazil, workers with income `\(&lt; 2\)` minimum wages are entitled to a cash grant
+
+**Intuition**: compare unemployment outcomes for barely elegible/inelegible individuals
+
+---
+
+.center[&lt;img src="figs/britto2022.png" style="width: 70%" /&gt;]
+
+---
+
+# Sharp RD Basics: Introduction
+
+Example 3:
+&gt; *Mejía, D., Restrepo, P. and Rozo, S.V., 2017. On the effects of enforcement on illegal markets: evidence from a quasi-experiment in Colombia. &lt;g&gt;The World Bank Economic Review&lt;/g&gt;, 31(2), pp.570-594.*
+
+Do anti-drug enforcement policies reduce cocaine production?
+
+- What is the effect of aerial spraying targeting cultivation regions?
+
+- Major policies in Colombia, but not close to Ecuadorian border (diplomatic frictions)
+
+**Intuition**: compare coca cultivation in regions inside/outside the diplomatic border
+
+---
+
+`$$\quad$$`
+
+.pull-left[
+&lt;img src="figs/mejia1.png" style="width: 100%" /&gt;
+]
+.pull-right[
+&lt;img src="figs/mejia2.png" style="width: 100%" /&gt;
+]
+
+--
+
+.center[This is an example of a &lt;g&gt;fuzzy RD design&lt;/g&gt; (more on that later)!]
+
+---
+
+`$$\quad$$`
+
+.pull-left[
+&lt;img src="figs/mejia1.png" style="width: 100%" /&gt;
+]
+.pull-right[
+&lt;img src="figs/mejia3.png" style="width: 100%" /&gt;
+]
+
+--
+
+.center[How do we &lt;g&gt;formalize and estimate&lt;/g&gt; the effect of such discontinuities?]
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Getting started: Formalizing
+
+# Regression Discontinuity Designs
+]
+
+---
+
+# Formalizing RD Designs
+
+A RD design has **three fundamental components**
+
+1. A continuous &lt;g&gt;score variable&lt;/g&gt; `\(X_i\)` (also know as forcing/running variable)
+
+2. A score cutoff `\(c \in X_i\)` (*normalized to zero*)
+
+3. A treatment `\(T_i\)` assignment (based on `\(i\)`'s relative score `\(X_i\)` to cutoff)
+
+&lt;br&gt;
+
+&lt;o&gt;Key defining feature:&lt;/o&gt; probability of treatment changes discontinuously at the cutoff `\(c\)`
+
+  - Advantage: this condition can be tested in the data!
+
+---
+
+# Formalizing RD Designs: Sharp versus Fuzzy RD Designs
+
+.pull-left[
+In RD designs, the assignment rule &lt;g&gt;is known&lt;/g&gt;
+
+&lt;u&gt;Sharp RD&lt;/u&gt;: `\(T_i = 1 \left( X_i \geq c \right)\)`
+]
+.pull-right[
+&lt;img src="figs/cattaneo1.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Formalizing RD Designs: Sharp versus Fuzzy RD Designs
+
+.pull-left[
+In RD designs, the assignment rule &lt;g&gt;is known&lt;/g&gt;
+
+&lt;u&gt;Sharp RD&lt;/u&gt;: `\(T_i = 1 \left( X_i \geq c \right)\)`
+
+&lt;u&gt;Fuzzy RD&lt;/u&gt;: `\(\mathbb{P}(\text{Treatment} | X_i = c)\)` changes discontinuously at `\(X_i = c\)`
+]
+.pull-right[
+&lt;img src="figs/cattaneo2.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Formalizing RD Designs: Sharp versus Fuzzy RD Designs
+
+.pull-left[
+In RD designs, the assignment rule &lt;g&gt;is known&lt;/g&gt;
+
+&lt;u&gt;Sharp RD&lt;/u&gt;: `\(T_i = 1 \left( X_i \geq c \right)\)`
+
+&lt;u&gt;Fuzzy RD&lt;/u&gt;: `\(\mathbb{P}(\text{Treatment} | X_i = c)\)` changes discontinuously at `\(X_i = c\)`
+
+&lt;br&gt;
+
+For now, &lt;g&gt;we focus on Sharp RD&lt;/g&gt;
+- How to exploit the discontinuity to estimate treatment effects?
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo1.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Formalizing Sharp RD Designs
+
+&lt;u&gt;**Recall:**&lt;/u&gt; our aim is to estimate the effects of `\(T_i\)` on `\(Y_i = T_i Y_i(1) + (1 - T_i) Y_i(0)\)`, but
+`$$Y_i(1), Y_i(0) \not\perp T_i | X_i$$`
+--
+
+To overcome that, RD assumes treatment discontinuity
+`$$\lim_{x \downarrow c} \mathbb{P}(T_i = 1 | X_i = x) \neq \lim_{x \uparrow c} \mathbb{P}(T_i = 1 | X_i = x)$$`
+and &lt;g&gt;continuity of potential outcomes&lt;/g&gt;
+`$$\lim_{x \downarrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] = \lim_{x \uparrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] \quad \forall j = 0,1$$`
+These are the assumptions of the &lt;o&gt;continuity-based&lt;/o&gt; RD approach
+- Last class: alternative *local randomization approach*
+
+---
+
+.pull-left[
+We know that comparing treat/control
+`$$\tau = \mathbb{E}\left[ Y_i | T_i = 1 \right] - \mathbb{E}\left[ Y_i | T_i = 0 \right]$$`
+leads to selection bias (why?)
+
+]
+.pull-right[
+&lt;br&gt;
+&lt;img src="figs/cattaneo3.png" style="width: 100%" /&gt;
+]
+
+---
+
+.pull-left[
+We know that comparing treat/control
+`$$\tau = \mathbb{E}\left[ Y_i | T_i = 1 \right] - \mathbb{E}\left[ Y_i | T_i = 0 \right]$$`
+leads to selection bias (why?)
+
+&lt;u&gt;**RD approach**&lt;/u&gt;: compare units just close to `\(c\)`
+`\begin{align}
+\tau_{SRD} &amp;= \mathbb{E}\left[ Y_i(1) - Y_i(0) | X_i = c \right] \\
+\quad \\
+&amp;= \mathbb{E}\left[ Y_i(1) | X_i = c \right] - \mathbb{E}\left[ Y_i(0) | X_i = c \right] \\
+\quad \\
+&amp;= \mu_{+} - \mu_{-}
+\end{align}`
+
+]
+.pull-right[
+&lt;br&gt;
+&lt;img src="figs/cattaneo3.png" style="width: 100%" /&gt;
+]
+
+---
+
+.pull-left[
+We know that comparing treat/control
+`$$\tau = \mathbb{E}\left[ Y_i | T_i = 1 \right] - \mathbb{E}\left[ Y_i | T_i = 0 \right]$$`
+leads to selection bias (why?)
+
+&lt;u&gt;**RD approach**&lt;/u&gt;: compare units just close to `\(c\)`
+`\begin{align}
+\tau_{SRD} &amp;= \mathbb{E}\left[ Y_i(1) - Y_i(0) | X_i = c \right] \\
+\quad \\
+&amp;= \mathbb{E}\left[ Y_i(1) | X_i = c \right] - \mathbb{E}\left[ Y_i(0) | X_i = c \right] \\
+\quad \\
+&amp;= \mu_{+} - \mu_{-}
+\end{align}`
+
+&lt;o&gt;RD is all about&lt;/o&gt; estimating `\(\mu_{+}\)` and `\(\mu_{-}\)`
+- Issue: we do not observe `\(Y_i(1)\)` and `\(Y_i(0)\)`
+
+]
+.pull-right[
+&lt;br&gt;
+&lt;img src="figs/cattaneo3.png" style="width: 100%" /&gt;
+]
+
+---
+
+.pull-left[
+RD relies on &lt;g&gt;continuity assumptions&lt;/g&gt;
+`\begin{align}
+\tau_{SRD} &amp;= \mathbb{E}\left[ Y_i(1) - Y_i(0) | X_i = c \right] \\
+\quad \\
+&amp;= \underbrace{\lim_{x \downarrow c}\mathbb{E}\left[ Y_i | X_i = c \right]}_{\text{Estimable}} - \underbrace{\lim_{x \uparrow c}\mathbb{E}\left[ Y_i | X_i = c \right]}_{\text{Estimable}} \\
+&amp;= \mu_{+} - \mu_{-}
+\end{align}`
+to approximate `\(\mu_{+}\)` and `\(\mu_{-}\)` with observ. `\(Y_i\)`
+
+&lt;u&gt;How to approximate&lt;/u&gt; `\(\lim\)` in practice?
+
+]
+.pull-right[
+&lt;br&gt;
+&lt;img src="figs/cattaneo3.png" style="width: 100%" /&gt;
+]
+
+---
+
+.pull-left[
+RD relies on &lt;g&gt;continuity assumptions&lt;/g&gt;
+`\begin{align}
+\tau_{SRD} &amp;= \mathbb{E}\left[ Y_i(1) - Y_i(0) | X_i = c \right] \\
+\quad \\
+&amp;= \underbrace{\lim_{x \downarrow c}\mathbb{E}\left[ Y_i | X_i = c \right]}_{\text{Estimable}} - \underbrace{\lim_{x \uparrow c}\mathbb{E}\left[ Y_i | X_i = c \right]}_{\text{Estimable}} \\
+&amp;= \mu_{+} - \mu_{-}
+\end{align}`
+to approximate `\(\mu_{+}\)` and `\(\mu_{-}\)` with observ. `\(Y_i\)`
+
+&lt;u&gt;How to approximate&lt;/u&gt; `\(\lim\)` in practice?
+
+- Subset within a &lt;o&gt;narrow bandwidth&lt;/o&gt; `\(h\)`
+
+&lt;u&gt;Important&lt;/u&gt;: RD estimates are &lt;g&gt;local in nature&lt;/g&gt;!
+
+- Who is the sample `\(X_i \in [c - h, c + h]\)`?
+
+]
+.pull-right[
+&lt;br&gt;
+&lt;img src="figs/cattaneo3.png" style="width: 100%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+]
+.right-column[
+&lt;img src="figs/cattaneo4.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+
+We observe data
+]
+.right-column[
+&lt;img src="figs/cattaneo5.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+
+We observe data
+
+And do not know `\(\mathbb{E}\left[Y_i(j) | X_i = x\right]\)`
+]
+.right-column[
+&lt;img src="figs/cattaneo6.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+
+We observe data
+
+And do not know `\(\mathbb{E}\left[Y_i(j) | X_i = x\right]\)`
+
+Approximate `\(\lim\)`:
+- Within `\(h\)`
+]
+.right-column[
+&lt;img src="figs/cattaneo7.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+
+We observe data
+
+And do not know `\(\mathbb{E}\left[Y_i(j) | X_i = x\right]\)`
+
+Approximate `\(\lim\)`:
+- Within `\(h\)`
+
+`\(\hat{\mu}_{1} = \hat{\mathbb{E}}\left[Y_i(1) | X_i = c\right]\)`
+]
+.right-column[
+&lt;img src="figs/cattaneo8.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+
+We observe data
+
+And do not know `\(\mathbb{E}\left[Y_i(j) | X_i = x\right]\)`
+
+Approximate `\(\lim\)`:
+- Within `\(h\)`
+
+`\(\hat{\mu}_{1} = \hat{\mathbb{E}}\left[Y_i(1) | X_i = c\right]\)`
+
+`\(\hat{\mu}_{0} = \hat{\mathbb{E}}\left[Y_i(0) | X_i = c\right]\)`
+]
+.right-column[
+&lt;img src="figs/cattaneo9.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+We want
+- `\(\tau_{SRD} = \mu_{+} - \mu_{-}\)`
+
+We observe data
+
+And do not know `\(\mathbb{E}\left[Y_i(j) | X_i = x\right]\)`
+
+Approximate `\(\lim\)`:
+- Within `\(h\)`
+
+`\(\hat{\mu}_{1} = \hat{\mathbb{E}}\left[Y_i(1) | X_i = c\right]\)`
+
+`\(\hat{\mu}_{0} = \hat{\mathbb{E}}\left[Y_i(0) | X_i = c\right]\)`
+
+`\(\hat{\tau}_{SRD} = \hat{\mu}_{1} - \hat{\mu}_{0}\)`
+]
+.right-column[
+&lt;img src="figs/cattaneo10.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+&lt;br&gt; &lt;br&gt; &lt;br&gt;
+
+Any &lt;o&gt;**questions?**&lt;/o&gt;
+]
+.right-column[
+&lt;img src="figs/cattaneo10.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+
+&lt;br&gt; &lt;br&gt; &lt;br&gt;
+
+Is `\(\hat{\tau}_{SRD}\)` sensitive
+
+- Bandwitdht choice `\(h\)`?
+
+- Functional format?
+
+]
+.right-column[
+&lt;img src="figs/cattaneo11.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+&lt;br&gt; &lt;br&gt; &lt;br&gt;
+
+Is `\(\hat{\tau}_{SRD}\)` sensitive
+
+- Bandwitdht choice `\(h\)`?
+
+- Functional format?
+
+]
+.right-column[
+&lt;img src="figs/cattaneo12.png" style="width: 90%" /&gt;
+]
+
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# How to Estimate RD Effects?
+
+# Theory and Best Practice
+
+]
+
+---
+
+# RD Theory and Best Practice
+
+Best practice in RD work consists of &lt;u&gt;3 fundamental steps&lt;/u&gt;
+
+1\. &lt;g&gt;RD plots&lt;/g&gt;: illustrates visually the discontinuity
+
+- Transparency vis-à-vis other methods (e.g., IV)
+
+2\. &lt;o&gt;RD Point Estimation&lt;/o&gt;
+
+- Continuity-based RD: local polynomial approximation
+
+3\. **Validation** of RD Design
+
+- Placebo, density tests, ... (tomorrow!)
+
+---
+
+# RD Theory and Best Practice: RD Plots
+
+.pull-left[
+&lt;u&gt;**RD plots**&lt;/u&gt;: uncovers "hidden" data patterns
+
+&lt;g&gt;Meyersson (2014):&lt;/g&gt; Islamic representation `\(\rightarrow\)` effects in female education?
+
+- Strategy: RD disc. on close elections
+
+- Units: municipalities in Turkey
+
+- Score: margin  Islamic party victory
+
+- Raw data: &lt;o&gt;slight negative relationship&lt;/o&gt;
+
+]
+.pull-right[
+&lt;img src="figs/meyersson1.png" style="width: 100%" /&gt;
+]
+
+---
+
+# RD Theory and Best Practice: RD Plots
+
+.pull-left[
+&lt;u&gt;**RD plots**&lt;/u&gt;: combination of
+
+1. Binned scatter plot
+
+2. Global polynomial fits `\((\neq \text{ local?})\)`
+- Both sides of `\(c\)` (using raw data)
+
+&lt;g&gt;Meyersson (2014):&lt;/g&gt; close victories `\(\rightarrow\)` higher female education
+- Technical aspects in the practical class
+
+RD plots adds &lt;o&gt;transparency&lt;/o&gt; to studies
+
+]
+.pull-right[
+&lt;img src="figs/meyersson2.png" style="width: 100%" /&gt;
+]
+
+---
+
+# RD Theory and Best Practice: RD Point Estimation
+
+.pull-left[
+&lt;u&gt;Illustration&lt;/u&gt;: we estimate `\(\mu_{+}\)` with
+`$$Y_i = \beta_0 + \beta_1 X_i \quad \forall X_i \in [c, c+ h]$$`
+where `\(\hat{\beta}_0 \equiv \hat{\mu}_{+}\)` (normalized `\(X_i\)`)
+
+- This regression is the estimated &lt;g&gt;local polynomial&lt;/g&gt; (of order 1)
+
+- What about `\(\neq h\)` or functional formats?
+
+- Regression weights, ...?
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo8.png" style="width: 100%" /&gt;
+]
+
+---
+
+# RD Theory and Best Practice: RD Point Estimation
+
+Best practice in RD work consists of &lt;u&gt;3 fundamental steps&lt;/u&gt;
+
+1. Choose a polynomial order `\(p\)`, kernel function `\(K(.)\)` (weights), and bandwidth `\(h\)`
+
+2. For treated/control samples, fit weighted least square regressions of `\(Y_i\)`
+`$$Y_i = \mu_{+} + \sum\limits_{r = 1}^p \mu_{+}^r (X_i - c)^r + \varepsilon_i \quad \forall X_i \in [c, c+h] \\ Y_i = \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \varepsilon_i \quad \forall X_i \in [c-h, c]$$`
+
+3. Calculate Sharp RD estimate `\(\hat{\tau}_{SRD} = \hat{\mu}_{+} - \hat{\mu}_{-} \equiv \hat{\mathbb{E}}\left[ Y_i(1) - Y_i(0) | X_i = c \right]\)`
+
+---
+
+# RD Theory and Best Practice: RD Point Estimation
+
+&lt;u&gt;Final remarks&lt;/u&gt; on polynomial order `\(p\)`, kernel function `\(K(.)\)` (weights), and bandwidth `\(h\)`:
+
+- Polynomial order `\(p\)` and kernel function `\(K(.)\)`: "arbitrary" choices
+
+  - Results must be robust to `\(\neq\)` choices (validation)
+  
+- Bandwidth `\(h\)` can be optimally retrieved with a &lt;g&gt;data-driven procedure&lt;/g&gt;
+
+  - Practical session today!
+
+---
+
+# RD Theory and Best Practice: RD Point Estimation
+
+On RD point estimation, one can &lt;u&gt;simplify points 2 and 3&lt;/u&gt; and fit
+`$$Y_i = \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \beta T_i +  \sum\limits_{r = 1}^p \gamma^r (X_i - c)^r T_i + \varepsilon_i \quad \forall X_i \in [c-h, c+h]$$`
+where `\(\hat{\beta} \equiv \hat{\tau}_{SRD}\)` (why is that so?)
+
+This is the &lt;o&gt;common specification&lt;/o&gt; used in applied research
+
+--
+
+## This afternoon
+
+- Practical aspects of RD plots and RD estimation
+
+- Tomorrow: theory and practice of RD validation (and more)
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Thank you and
+
+# see you later!
+
+]
+
+---
+
+# References
+
+- Britto, D.G., 2022. The employment effects of lump-sum and contingent job insurance policies: Evidence from Brazil. *Review of Economics and Statistics*, 104(3), pp.465-482.
+
+- Meyersson, E., 2014. Islamic Rule and the Empowerment of the Poor and Pious. *Econometrica*, 82(1), pp.229-269.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

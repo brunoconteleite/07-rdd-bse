@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 03 - Regression Discontinuity Designs in Development Economics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bruno Conte" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer-bse.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 03 - Regression Discontinuity Designs<br>in Development Economics
+]
+.subtitle[
+## Theory and Practice
+]
+.author[
+### Bruno Conte
+]
+.institute[
+### Barcelona School of Economics
+]
+.date[
+### 10/Jul/2024
+]
+
+---
+
+
+
+
+&lt;style&gt;
+g { color: rgb(0,130,155) }
+o { color: rgb(240,138,33) }
+&lt;/style&gt;
+
+
+# RDD in Development Economics: Schedule
+
+1. ~~Introduction to treatment effects and RDD~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[08/Jul/2024]**
+
+2. ~~Sharp RD Design (Basics)~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[09/Jul/2024]**
+
+3. Sharp RD Design (Extensions) + Fuzzy RD Design &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[10/Jul/2024]**
+    - Validation and Falsification of RD Designs
+    - Fuzzy RD Designs &lt;br&gt; &lt;br&gt;
+
+4. Spatial Regression Discontinuities &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[11/Jul/2024]**&lt;br&gt; &lt;br&gt;
+
+5. Additional RDD Methods &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[12/Jul/2024]**
+
+---
+
+# Main References for this Class
+
+1. Cattaneo, M.D., Idrobo, N. and Titiunik, R., 2019. &lt;g&gt;A practical introduction to regression discontinuity designs: Foundations&lt;/g&gt;. *Cambridge University Press*.
+    - Chapter 5
+
+2. Cattaneo, M.D., Idrobo, N. and Titiunik, R., 2023. &lt;g&gt;A practical introduction to regression discontinuity designs: Extensions&lt;/g&gt;. arXiv preprint arXiv:2301.08958.
+    - Chapter 3
+
+
+---
+
+# Validating Sharp RD Designs
+
+&lt;u&gt;**RD Designs**&lt;/u&gt; have a crucial advantage
+
+- Mechanisms of treatment is &lt;g&gt;known and based on observable features&lt;/g&gt; (verifiable!)
+
+- However, other assumptions (e.g., continuity) cannot be tested (how to validate it?)
+
+--
+
+&lt;u&gt;**Today**&lt;/u&gt;: empirical &lt;o&gt;RD validation tests&lt;/o&gt;
+1. No effects on predetermined covariates or placebo outcomes
+2. Score density test around the cutoff
+3. Treatment effects at artificial cutoff values
+4. Excluding observation close to cutoff
+5. Sensitivity to bandwidth/polynomial choices
+
+Steps 1-5 are mandatory in &lt;g&gt;state-of-art RD work&lt;/g&gt; (best practice)!
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+One of the two pilar assumptions of RD designs is the &lt;g&gt;continuity of potential outcomes&lt;/g&gt;
+`$$\lim_{x \downarrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] = \lim_{x \uparrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] \quad \forall j = 0,1$$`
+- &lt;u&gt;Implication&lt;/u&gt;: (unobserved) potential outcomes are *smooth* functions of score
+
+--
+
+- It cannot be empirically tested: good practice &lt;o&gt;tests the smoothness of&lt;/o&gt; (`rdplot`+`rdrobust`)
+
+1. **Predetermined covariates** `\(C_i\)`
+
+  - If units below/above `\(c\)` are comparable, `\(\mathbb{E}\left[ C_i | X_i = x\right]\)` &lt;u&gt;shold not be discontinuous&lt;/u&gt; at `\(c\)`
+
+2. **Placebo outcomes**
+
+  - Outcomes determined after the policy that could not be affected by it
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+**Predetermined covariates**: visual and formal evidence
+
+- Example: Meyersson (2014); no apparent discontinuity
+
+.center[
+&lt;img src="figs/cattaneo13.png" style="width: 70%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+**Predetermined covariates**: visual and formal evidence
+
+- Example: Meyersson (2014); no apparent discontinuity
+
+.center[
+&lt;img src="figs/cattaneo14.png" style="width: 70%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+**Predetermined covariates**: visual and formal evidence
+
+- Example: Meyersson (2014); no apparent and &lt;g&gt;statistical discontinuity&lt;/g&gt;
+
+.center[
+&lt;img src="figs/cattaneo15.png" style="width: 80%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+&lt;u&gt;Another example&lt;/u&gt;: cash-grant based on workers' previous income (2 min. wages; Britto, 2022)
+
+.center[
+&lt;img src="figs/britto2022_1.png" style="width: 95%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+&lt;u&gt;Another example&lt;/u&gt;: cash-grant based on workers' previous income (2 min. wages; Britto, 2022)
+
+.center[
+&lt;img src="figs/britto2022_2.png" style="width: 95%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (1/5): Continuity
+
+**Placebo outcomes**: sligthly more elaborated than predetermined covariates `\(C_i\)`
+
+- `\(C_i\)` aims at *any* predetermined (i.e., pre-policy) characteristics (exogeneity assumption)
+
+- Placebo tests, insted, must aim at outcomes that are determined after treatment
+  
+  - But &lt;o&gt;**could not be affected by treatment**&lt;/o&gt; `\(T_i\)` (it is very context-specific)
+
+--
+
+&lt;u&gt;Example&lt;/u&gt;: Galiani et al. (2005) "*Water for life: The impact of the privatization of water services on child mortality*"
+
+- Context: water-privatization policy (cleaner water) based on a municipality-specific threshold, effects on child mortality
+
+- &lt;g&gt;Placebo:&lt;/g&gt; car accident-driven mortality (can clean water affect it?)
+
+---
+
+# Validating Sharp RD Designs (2/5): No Manipulation
+
+&lt;u&gt;**Score density test**&lt;/u&gt;: (one of) the most important tests in an RD design
+
+- Discontinuous treatment `\(\rightarrow\)` (quasi-) natural experiment (i.e., `\(T_i\)` is not globally exogenous)
+
+  - Just by chance, units just above/below were/not assigned to treatment
+  
+This logic breaks down &lt;o&gt;if units can manipulate&lt;/o&gt; the score
+
+- Household cash transfer based on # children enrolled in school
+
+- Assistance policy based on poverty index (e.g., PROGRESA)
+
+- Unemployment benefit's generosity based on tenure duration
+
+--
+
+Treatment manipulation `\(\leftrightarrow\)` density discontinuity in `\(X_i=c\)` (formal test with `rddensity`)
+
+---
+
+# Validating Sharp RD Designs (2/5): No Manipulation
+
+&lt;u&gt;**Score density test**&lt;/u&gt;: illustration (Cattaneo et al., 2019)
+
+.center[
+&lt;img src="figs/cattaneo16.png" style="width: 80%" /&gt;
+]
+
+---
+
+&lt;u&gt;**Score density test**&lt;/u&gt;: Citino et al. (2022)'s unemployment duration `\(\leftrightarrow\)` age at layoff
+
+- 8 months if younger than 50 years old, 12 months otherwise (workers negotiate!)
+
+.center[
+&lt;img src="figs/citino1.png" style="width: 70%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (3/5): Placebo Cutoffs
+
+&lt;u&gt;**Placebo cutoffs**&lt;/u&gt;: if effects are caused by `\(T_i\)`, there should be no effect if `\(c \neq 0\)`
+
+- In practice, estimate `\(\tau_{SRD}\)` with `rdrobust` with `\(c \neq 0\)`
+
+- &lt;o&gt;Important:&lt;/o&gt; use only treated (control) samples if `\(c &gt;0\)` (or `\(&lt;0\)`)
+
+.center[
+&lt;img src="figs/cattaneo17.png" style="width: 70%" /&gt;
+]
+
+---
+
+.center[
+&lt;img src="figs/cattaneo18.png" style="width: 80%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (4/5): Sensitivity of Local Estimates
+
+&lt;u&gt;**Near cutoff observations**&lt;/u&gt;: most subject to manipulation (test 2)
+
+- &lt;g&gt;"Donut hole" approach:&lt;/g&gt; remove observations very close (above and below) to `\(c\)`
+
+- In practice, done (with `rdrobust`) even if manipulation is ruled out
+
+.center[
+&lt;img src="figs/cattaneo19.png" style="width: 80%" /&gt;
+]
+
+---
+
+.center[
+&lt;img src="figs/cattaneo20.png" style="width: 80%" /&gt;
+]
+
+---
+
+# Validating Sharp RD Designs (5/5): Polynomial and Bandwidth
+
+&lt;u&gt;**Bandwidth choice `\(h\)`**&lt;/u&gt;: balances the *bias-variance tradeoff*
+
+- In principle, data-driven `\(h\)` choice is optimal in that regard
+
+- Nevertheless, it is good practice to verify how sensitive is `\(\hat{\tau}_{SRD}\)`
+
+&lt;u&gt;**Polynomial choice `\(p\)`**&lt;/u&gt;: local nature of `\(\hat{\tau}_{SRD}\rightarrow\)` `\(p \leq 2\)` for baseline (linear in most cases)
+
+- However, good to check the robustness of `\(\hat{\tau}_{SRD}\)`
+
+---
+
+Pinotti (2017) "*Clicking on heaven’s door: The effect of immigrant legalization on crime*"
+
+.center[
+&lt;img src="figs/pinotti1.png" style="width: 72%" /&gt;
+]
+
+---
+
+# Sharp RD Designs: Wrapping up
+
+- So far, we have learned how to use &lt;o&gt;**Sharp RD Designs**&lt;/o&gt; to infer (local) treatment effects
+
+  - Clean, testeable assumptions; transparent empirical framework
+
+  - Feasible validation toolbox that provides robustness to RD results
+
+--
+
+- Crucial assumption: &lt;g&gt;perfect treatment compliance&lt;/g&gt;
+
+  - In reality, treatment assignment `\(T_i = 1\)` might not necessarily lead to effective treatment
+  
+Next, we will cover situations with &lt;u&gt;imperfect compliance&lt;/u&gt;
+
+- Also known as &lt;o&gt;**Fuzzy RD Designs**&lt;/o&gt;
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Fuzzy RD Designs
+
+]
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+We now &lt;u&gt;relax the assumption&lt;/u&gt; of prefect compliance
+
+- While rules my (deterministically) assign treatment, in practice &lt;g&gt;units can deviate&lt;/g&gt;
+
+  - Student loan elegibility based on family income: do all students go to college?
+  
+  - Access to public job through national exams: can agents appeal if just below cutoff?
+
+--
+
+Hence, in &lt;g&gt;Fuzzy RD&lt;/g&gt; designs, we differentiate
+
+- Treatment assignment `\(T_i = 1 \left( X_i \geq c \right)\)`
+  
+- &lt;o&gt;Treatment take-up&lt;/o&gt; `\(D_i\)` such that
+`$$D_i = T_i D_{i}(1) + (1-T_i)D_{i}(0)$$`
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+Thus, observed `\(D_i\)` `\(\neq\)` *potential treatments* `\(D_{i}(1), D_{i}(0) \rightarrow D_i \neq T_i\)` for some `\(i\)`
+
+- That generates &lt;g&gt;4 types&lt;/g&gt; of treatment assignment `\(\leftrightarrow\)` take-up behaviour (important for interpreting treatment effects later!)
+
+.center[
+&lt;img src="figs/llull1.png" style="width: 60%" /&gt;
+]
+
+---
+
+More formally, &lt;o&gt;Fuzzy RD&lt;/o&gt; needs the (augmented) **continuity assumption** (testable)
+`$$\lim_{x \downarrow c}\mathbb{P}\left( D_i = 1 | X_i = x\right) \neq \lim_{x \uparrow c}\mathbb{P}\left( D_i = 1 | X_i = x\right)$$`
+.center[
+&lt;img src="figs/cattaneo21.png" style="width: 85%" /&gt;
+]
+
+Note: Sharp RD (left) is a &lt;g&gt;particular case of Fuzzy RD&lt;/g&gt; (why?)
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+&lt;u&gt;Example&lt;/u&gt;: Lodoño-Vélez et al. (2020)'s public subsidies on educational outcomes
+
+.center[
+&lt;img src="figs/lodono1.png" style="width: 90%" /&gt;
+]
+
+---
+
+# Fuzzy RD Designs in Practice
+
+With imperfect compliance, the researcher can &lt;u&gt;focus in two different effects&lt;/u&gt;
+
+- &lt;g&gt;Intention to treat (ITT):&lt;/g&gt; effect of assigning the policy 
+
+  - Infers the effect of being assigned (i.e., `\(T_i=1\)`), rather than being treated
+
+- &lt;o&gt;Treatment effects&lt;/o&gt; `\((D_i)\)` for a subpopulation (more on that later)
+
+  - Requires additional assumptions and has a `\(\neq\)` interpretation vis-à-vis `\(\hat{\tau}_{SRD}\)`
+
+--
+
+Which approach to use?
+
+- &lt;u&gt;Depends on the context&lt;/u&gt; (and feasibility)
+
+---
+
+# Fuzzy RD Designs: ITT Estimation
+
+Intention to treatment `\(\tau_{ITT}\)` is &lt;o&gt;equivalent to Sharp RD&lt;/o&gt; (interprets assignment as treatment)
+
+- How to interpret it, and when is it (policy) relevant?
+
+- In practice, estimation (and validation) follows `\(\tau_{SRD}\)`'s estimation procedure
+
+--
+
+However, ITT RD settings also require &lt;g&gt;evidence of the first stage&lt;/g&gt;
+`$$\tau_{FS} = \lim_{x\downarrow c}\mathbb{E}\left[ D_i(1) | X_i = c \right] - \lim_{x\uparrow c}\mathbb{E}\left[ D_i(0) | X_i = c \right]$$`
+i.e., evidence that treatment assignments `\(\rightarrow\)` treatment takeup (why is it called first stage?)
+
+In practice, we use `rdrobust` as with `\(\tau_{SRD}\)`
+
+- How to estimate `\(\hat{\tau}_{FS}\)` in formal terms (what is the regression that estimates it??
+
+---
+
+# Fuzzy RD Designs: Treatment Effects
+
+More interestingly, we can infer the effects of treatment take-up `\(D_i\)`, `\(\tau_{FRD}\)`
+
+- While informative, `\(\tau_{ITT}\)` has limitations of (policy) relevance in reality
+
+Because of (strategic) incompliance, `\(D_i \not\equiv\)` as a (quasi-) experiment; approach is instead
+`\begin{align}
+Y_i &amp;= \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \beta \hat{D}_i +  \sum\limits_{r = 1}^p \gamma^r (X_i - c)^r \hat{D}_i + \varepsilon_i \quad \text{[second stage]} \\
+D_i &amp;= \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \alpha T_i +  \sum\limits_{r = 1}^p \gamma^r (X_i - c)^r T_i + \varepsilon_i \quad \text{[first stage]}
+\end{align}`
+That is, we use assignment `\(T_i\)` as an &lt;o&gt;**instrument for take-up**&lt;/o&gt; `\(D_i\)` to estimate 
+
+---
+
+# Fuzzy RD Designs: Treatment Effects
+
+In practice, `\(\tau_{FRD} \equiv\)` (local) &lt;g&gt;Wald Estimand&lt;/g&gt; (scale `\(\tau_{ITT}\)` by the &lt;u&gt;share of compliers&lt;/u&gt; `\(\tau_{FS}\)`)
+`$$\hat{\tau}_{FRD} = \frac{\hat{\tau}_{ITT}}{\hat{\tau}_{FS}} = \frac{\lim_{x \downarrow c} \hat{\mathbb{E}} \left[ Y_i | X_i = x \right] - \lim_{x \uparrow c} \hat{\mathbb{E}} \left[ Y_i | X_i = x \right]}{\lim_{x \downarrow c} \hat{\mathbb{E}} \left[ D_i | X_i = x \right] - \lim_{x \uparrow c} \hat{\mathbb{E}} \left[ D_i | X_i = x \right]} \equiv \frac{\text{Reduced form}}{\text{First stage}}$$`
+--
+
+Hence, as with IV, `\(\tau_{FRD}\)` needs the (local) &lt;o&gt;**monotonicity assumption:**&lt;/o&gt;
+`$$\lim_{x\downarrow c}\mathbb{E} \left[ D_i | X_i = x \right] \geq \lim_{x\uparrow c}\mathbb{E} \left[ D_i | X_i = x \right]$$`
+which, in practice, requires that there is &lt;g&gt;no defiers in the sample&lt;/g&gt; (needs qualitative evidence!)
+
+--
+
+If so, `\(\hat{\tau}_{FRD} \equiv\)` &lt;u&gt;Local Average Treatment Effects (LATE)&lt;/u&gt;
+
+- Effects on a "local" subset , the compliers (who are them, and are them representative?)
+
+---
+
+# Fuzzy RD Designs: Treatment Effects
+
+&lt;u&gt;Illustration&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*" (school enrolment cohorts should be divided if `\(\geq 40\)` students)
+
+.center[
+&lt;img src="figs/angrist1.png" style="width: 70%" /&gt;
+]
+
+
+---
+
+# Fuzzy RD Designs: Treatment Effects
+
+&lt;u&gt;Implementation&lt;/u&gt;: Sharp RD methods for `\(\tau_{ITT}\)` and `\(\tau_{FS}\)` (or `rdrobust` altogether). &lt;o&gt;Remarks:&lt;/o&gt;
+
+- **Bandwidth**: `\(\tau_{FRD} \equiv\)` ratio, thus `\(h\)` &lt;g&gt;must be the same&lt;/g&gt; for `\(\tau_{ITT}\)` and `\(\tau_{FS}\)`
+
+--
+
+- **Weak Assignment**: `\(\equiv\)` weak IV; rule of thumb is F-Stat `\(\geq 20\)` (IV is 10)
+
+--
+
+- **Validation and Falsification**: (almost) the same as Sharp RD
+
+  - Continuity of covariates and Density tests &lt;g&gt;must done with ITT effects!&lt;/g&gt;
+
+--
+
+&lt;br&gt;
+
+In practice, &lt;u&gt;Fuzzy RD is easily implemented&lt;/u&gt; (`rdrobust` has a `fuzzy` option)
+
+- Next, we will study multi-score (spatial) RD, multi-cutoff RD, and more!
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Thank you and
+
+# see you later!
+
+]
+
+---
+
+# References
+
+- Angrist, J.D. and Lavy, V., 1999. Using Maimonides' rule to estimate the effect of class size on scholastic achievement. The *Quarterly Journal of Economics*, 114(2), pp.533-575.
+
+- Britto, D.G., 2022. The employment effects of lump-sum and contingent job insurance policies: Evidence from Brazil. *Review of Economics and Statistics*, 104(3), pp.465-482.
+
+- Citino, L., Russ, K. and Scrutinio, V., 2022. Manipulation, Selection and the Design of Targeted Social Insurance. *Working Paper*.
+
+- Galiani, S., Gertler, P. and Schargrodsky, E., 2005. Water for life: The impact of the privatization of water services on child mortality. *Journal of Political Economy*, 113(1), pp.83-120.
+
+- Londoño-Vélez, J., Rodríguez, C. and Sánchez, F., 2020. Upstream and downstream impacts of college merit-based financial aid for low-income students: Ser Pilo Paga in Colombia. *American Economic Journal: Economic Policy*, 12(2), pp.193-227.
+
+---
+
+# References
+
+- Meyersson, E., 2014. Islamic Rule and the Empowerment of the Poor and Pious. *Econometrica*, 82(1), pp.229-269.
+
+- Pinotti, P., 2017. Clicking on heaven’s door: The effect of immigrant legalization on crime. *American Economic Review*, 107(1), pp.138-168.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
