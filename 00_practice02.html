@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Practice 02 - Regression Discontinuity Designs in Development Economics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bruno Conte" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer-bse.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Practice 02 - Regression Discontinuity Designs<br>in Development Economics
+]
+.subtitle[
+## Theory and Practice
+]
+.author[
+### Bruno Conte
+]
+.institute[
+### Barcelona School of Economics
+]
+.date[
+### 09/Jul/2024
+]
+
+---
+
+
+
+
+&lt;style&gt;
+g { color: rgb(0,130,155) }
+o { color: rgb(240,138,33) }
+&lt;/style&gt;
+
+
+# RDD in Development Economics: Practical Class 02
+
+&lt;u&gt;Today's goal&lt;/u&gt;: put in practice the basic RD Sharp concepts with `rdrobust`
+
+- Recall: Best-practice RD work consists of &lt;g&gt;3 fundamental steps&lt;/g&gt;
+
+1. &lt;o&gt;RD Plots:&lt;/o&gt; visually inspection of discontinuity in observed outcomes
+
+2. &lt;g&gt;RD Point Estimation:&lt;/g&gt; done with local polynomial approximation (i.e., continuity-based approach)
+
+3. ~~RD Validation~~ (tomorrow!)
+
+**Material** for this class [&lt;u&gt;here&lt;/u&gt;](https://www.dropbox.com/scl/fi/7llotj2ke1shw6p5qpgej/00_practice02.zip?rlkey=md2li6ergf7ko74x2tulz7fx2&amp;st=go5xv2sb&amp;dl=1). Installation:
+
+```r
+install.packages('rdrobust')
+```
+
+```stata
+net install rdrobust, from(https://raw.githubusercontent.com/rdpackages/rdrobust/master/stata) replace
+```
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+
+# RD Plots
+
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+&lt;u&gt;**RD plots**&lt;/u&gt;: uncovers "hidden" data patterns
+
+&lt;g&gt;Meyersson (2014):&lt;/g&gt; Islamic representation `\(\rightarrow\)` effects in female education?
+
+- Strategy: RD disc. on close elections
+
+- Units: municipalities in Turkey
+
+- Score: margin  Islamic party victory
+
+- Raw data: &lt;o&gt;slight negative relationship&lt;/o&gt;
+
+- RD Plot: discontinuous, &lt;g&gt;positive effect&lt;/g&gt;!
+
+]
+.pull-right[
+&lt;img src="figs/meyersson1.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+&lt;u&gt;**RD plots**&lt;/u&gt;: uncovers "hidden" data patterns
+
+&lt;g&gt;Meyersson (2014):&lt;/g&gt; Islamic representation `\(\rightarrow\)` effects in female education?
+
+- Strategy: RD disc. on close elections
+
+- Units: municipalities in Turkey
+
+- Score: margin  Islamic party victory
+
+- Raw data: &lt;o&gt;slight negative relationship&lt;/o&gt;
+
+- RD Plot: discontinuous, &lt;g&gt;positive effect&lt;/g&gt;!
+
+]
+.pull-right[
+&lt;img src="figs/meyersson2.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+Raw plots, loading `data_meyersson.csv`
+
+```r
+dset &lt;- read.csv('data_meyersson.csv')
+plot(dset$X, dset$Y)
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-4-1.png" width="90%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+Raw plots, loading `data_meyersson.csv`
+
+```r
+dset &lt;- read.csv('data_meyersson.csv')
+plot(
+  dset$X, 
+  dset$Y,
+  xlab = "Score", # label x axis
+  ylab = "Outcome", # label y axis
+  col = 1, # black color
+  pch = 20 # circle dots
+  )
+abline(v=0) # add vertical line X=0
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-6-1.png" width="90%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+`rdplot`: part of `rdrobust` library
+
+```r
+install.packages('rdrobust')
+library(rdrobust)
+dset &lt;- read.csv('data_meyersson.csv')
+rdplot(dset$Y, dset$X)
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-8-1.png" width="90%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+`rdplot`: part of `rdrobust` library
+
+```r
+install.packages('rdrobust')
+library(rdrobust)
+dset &lt;- read.csv('data_meyersson.csv')
+rdplot(
+  dset$Y,
+  dset$X,
+  nbins = c(20, 20), # number of bins
+  binselect = "es", # bin type
+  y.lim = c(0,25) # limits y axis
+  )
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-10-1.png" width="90%" /&gt;
+]
+
+---
+
+&lt;g&gt;Important:&lt;/g&gt; RD plots store carry out important information (in `Stata`, printed in the console)!
+
+```r
+output &lt;- rdplot(dset$Y,dset$X,nbins = c(20, 20),binselect = "es",y.lim = c(0,25))
+summary(output)
+```
+
+```
+## Call: rdplot
+## 
+## Number of Obs.                 2629
+## Kernel                      Uniform
+## 
+## Number of Obs.                 2314             315
+## Eff. Number of Obs.            2314             315
+## Order poly. fit (p)               4               4
+## BW poly. fit (h)            100.000          99.051
+## Number of bins scale              1               1
+## 
+## Bins Selected                    20              20
+## Average Bin Length            5.000           4.953
+## Median Bin Length             5.000           4.953
+## 
+## IMSE-optimal bins                11               7
+## Mimicking Variance bins          40              75
+## 
+## Relative to IMSE-optimal:
+## Implied scale                 1.818           2.857
+## WIMSE variance weight         0.143           0.041
+## WIMSE bias weight             0.857           0.959
+```
+
+---
+
+# Practical Class 02: RD Plots (R versus Stata)
+
+## R command
+
+
+```r
+rdplot(dset$Y,dset$X,nbins = c(20, 20),binselect = "es")
+```
+
+## Stata equivalent
+
+
+```stata
+rdplot Y X, nbins(20 20) binselect(es)
+```
+
+---
+
+# Practical Class 02: RD Plots
+
+&lt;g&gt;Important:&lt;/g&gt; method of bin choice `\(\rightarrow \neq\)` results (`binselect = "es"` versus `binselect = "qs"`)
+.center[
+&lt;img src="figs/cattaneo22.png" style="width: 80%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+&lt;g&gt;Number of bins:&lt;/g&gt; can be optimally retrieved
+
+- Method: minimize MSE
+
+- How to? Omit `binselect`
+
+
+```r
+rdplot(
+  dset$Y,
+  dset$X,
+  nbins = c(20, 20), # number of bins
+  binselect = "es", # bin type
+  y.lim = c(0,25) # limits y axis
+  )
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-16-1.png" width="90%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+&lt;g&gt;Number of bins:&lt;/g&gt; can be optimally retrieved
+
+- Method: minimize MSE
+
+- How to? Omit `binselect`
+
+
+```r
+rdplot(
+  dset$Y,
+  dset$X,
+  # nbins = c(20, 20),
+  binselect = "es", # bin type
+  y.lim = c(0,25) # limits y axis
+  )
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-18-1.png" width="90%" /&gt;
+]
+
+---
+
+
+```r
+summary(output)
+```
+
+```
+## Call: rdplot
+## 
+## Number of Obs.                 2629
+## Kernel                      Uniform
+## 
+## Number of Obs.                 2314             315
+## Eff. Number of Obs.            2314             315
+## Order poly. fit (p)               4               4
+## BW poly. fit (h)            100.000          99.051
+## Number of bins scale              1               1
+## 
+## Bins Selected                    11               7
+## Average Bin Length            9.091          14.150
+## Median Bin Length             9.091          14.150
+## 
+## IMSE-optimal bins                11               7
+## Mimicking Variance bins          40              75
+## 
+## Relative to IMSE-optimal:
+## Implied scale                 1.000           1.000
+## WIMSE variance weight         0.500           0.500
+## WIMSE bias weight             0.500           0.500
+```
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+&lt;g&gt;Polynomial order:&lt;/g&gt; standard is `p = 4`
+
+- What if quadratic?
+
+```r
+rdplot(
+  dset$Y,
+  dset$X,
+  nbins = c(20, 20), # number of bins
+* p = 2, # polynomial order
+  binselect = "es", # bin type
+  y.lim = c(0,25) # limits y axis
+  )
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-21-1.png" width="90%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Plots
+
+.pull-left[
+&lt;g&gt;Polynomial order:&lt;/g&gt; standard is `p = 4`
+
+- What if linear?
+
+```r
+rdplot(
+  dset$Y,
+  dset$X,
+  nbins = c(20, 20), # number of bins
+* p = 1, # polynomial order
+  binselect = "es", # bin type
+  y.lim = c(0,25) # limits y axis
+  )
+```
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-23-1.png" width="90%" /&gt;
+]
+
+---
+
+# Wrapping Up: RD Plots
+
+&lt;g&gt;RD Plots:&lt;/g&gt; crucial ingredient in RD work
+
+- Motivates and illustrates, visually, the experiment in hand
+
+- Flexible and credible implementation with `rdplot`
+
+- More details: Cattaneo et al. (2019), chapter 3
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+
+# RD Point Estimation of `\(\tau_{SRD}\)`
+
+]
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+RD point estimation of `\(\tau_{SRD}\)` with `rdrobust`
+
+- Approximation of local polynomial in both sides of `\(c \rightarrow \hat{\tau}_{SRD} = \hat{\mu}_{+} - \hat{\mu}_{-}\)`
+
+## R version
+
+
+```r
+rdrobust(dset$Y, dset$X, kernel = "uniform", p = 1, h = 20)
+```
+## Stata version
+
+```stata
+rdrobust Y X, kernel(uniform) p(1) h(20)
+```
+&lt;u&gt;Important inputs&lt;/u&gt;: polynomial `\(p\)`, bandwidth `\(h\)`, and weights `\(K()\)`
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+.pull-left[
+&lt;u&gt;Polynomial `\(p\)`&lt;/u&gt;: local approach `\(\rightarrow p \leq 2\)`
+- Robustness to `\(p&gt;2\)`
+]
+.pull-right[
+&lt;img src="figs/cattaneo10.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+.pull-left[
+&lt;u&gt;Polynomial `\(p\)`&lt;/u&gt;: local approach `\(\rightarrow p \leq 2\)`
+- Robustness to `\(p&gt;2\)`
+
+&lt;u&gt;Kernel function `\(K()\)`&lt;/u&gt;: weights on regression
+- Usual triangular (no weights = uniform)
+]
+.pull-right[
+&lt;img src="figs/cattaneo10.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+.pull-left[
+&lt;u&gt;Polynomial `\(p\)`&lt;/u&gt;: local approach `\(\rightarrow p \leq 2\)`
+- Robustness to `\(p&gt;2\)`
+
+&lt;u&gt;Kernel function `\(K()\)`&lt;/u&gt;: weights on regression
+- Usual triangular (no weights = uniform)
+]
+.pull-right[
+&lt;img src="figs/cattaneo23.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+.pull-left[
+&lt;u&gt;Polynomial `\(p\)`&lt;/u&gt;: local approach `\(\rightarrow p \leq 2\)`
+- Robustness to `\(p&gt;2\)`
+
+&lt;u&gt;Kernel function `\(K()\)`&lt;/u&gt;: weights on regression
+- Usual triangular (no weights = uniform)
+
+&lt;u&gt;Bandwidth `\(h\)`&lt;/u&gt;: bias-variance trade-off
+- Data-driven optimal choice:
+`$$h^* = \text{arg}\text{min}_{h} \left[ \text{bias}(\tau_{SRD}(h))^2 + \text{variance}(\tau_{SRD}(h)) \right]$$`
+]
+.pull-right[
+&lt;img src="figs/cattaneo10.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+&lt;g&gt;Illustration&lt;/g&gt; with Meyerssen (2014)
+
+- Linear and quadratic polynomials
+
+- Uniform kernel (no weights) and triangular
+
+- Bandwidth `\(h = 20\)` (only elections victory margins within -20 and 20%)
+
+
+```r
+reg &lt;- rdrobust(dset$Y, dset$X, kernel = "uniform", p = 1, h = 20)
+summary(reg)
+```
+
+---
+
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                 2629
+## BW type                      Manual
+## Kernel                      Uniform
+## VCE method                       NN
+## 
+## Number of Obs.                 2314          315
+## Eff. Number of Obs.             608          280
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  20.000       20.000
+## BW bias (b)                  20.000       20.000
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                    2314          315
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     2.927     1.235     2.371     0.018     [0.507 , 5.347]     
+##         Robust         -         -     1.636     0.102    [-0.582 , 6.471]     
+## =============================================================================
+```
+
+---
+
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                 2629
+## BW type                      Manual
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 2314          315
+## Eff. Number of Obs.             608          280
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  20.000       20.000
+## BW bias (b)                  20.000       20.000
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                    2314          315
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     2.937     1.343     2.187     0.029     [0.305 , 5.569]     
+##         Robust         -         -     1.379     0.168    [-1.117 , 6.414]     
+## =============================================================================
+```
+
+---
+
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                 2629
+## BW type                      Manual
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 2314          315
+## Eff. Number of Obs.             608          280
+## Order est. (p)                    2            2
+## Order bias  (q)                   3            3
+## BW est. (h)                  20.000       20.000
+## BW bias (b)                  20.000       20.000
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                    2314          315
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     2.649     1.921     1.379     0.168    [-1.117 , 6.414]     
+##         Robust         -         -     0.420     0.674    [-3.969 , 6.135]     
+## =============================================================================
+```
+
+---
+
+# Practical Class 02: RD Point Estimation
+
+&lt;g&gt;Illustration&lt;/g&gt; with Meyerssen (2014)
+
+- Linear polynomial
+
+- Triangular kernel
+
+- ~~Bandwidth `\(h = 20\)` (only elections victory margins within -20 and 20%)~~
+
+- Data-driven bandwidth `\(h\)` choice: omit `h=20`, use `bwselect =`
+  - `mserd`: equal `\(h\)` that minimizes MSE
+  - `msetwo`: `\(\neq h\)` in each side
+
+
+```r
+reg &lt;- rdrobust(dset$Y, dset$X, kernel = "triangular", p = 1, bwselect = "mserd")
+summary(reg)
+```
+
+---
+
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                 2629
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 2314          315
+## Eff. Number of Obs.             529          266
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  17.240       17.240
+## BW bias (b)                  28.576       28.576
+## rho (h/b)                     0.603        0.603
+## Unique Obs.                    2311          315
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     3.020     1.427     2.116     0.034     [0.223 , 5.816]     
+##         Robust         -         -     1.776     0.076    [-0.309 , 6.276]     
+## =============================================================================
+```
+
+---
+
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                 2629
+## BW type                      msetwo
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 2314          315
+## Eff. Number of Obs.             607          267
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  19.967       17.360
+## BW bias (b)                  32.279       29.729
+## rho (h/b)                     0.619        0.584
+## Unique Obs.                    2311          315
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     2.969     1.391     2.134     0.033     [0.243 , 5.695]     
+##         Robust         -         -     1.810     0.070    [-0.245 , 6.152]     
+## =============================================================================
+```
+
+---
+
+# Wrapping Up: RD Point Estimation
+
+&lt;g&gt;RD Estimation:&lt;/g&gt; easily implemented with `rdrobust`
+
+- Power toolbox for RD estimation under `\(\neq\)` parameters
+
+- Parametric choice is important, results can be sensitive
+
+- Yet to be seen: &lt;o&gt;**how to validate**&lt;/o&gt; an RD design?
+
+  - Tomorrow!
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+
+# Take-Home/Assignment Exercises
+
+]
+
+---
+
+# Take-Home/Assignment Questions (2/4)
+
+.pull-left[
+
+&lt;g&gt;Part 1:&lt;/g&gt; use `data_meyersson.csv`
+
+Replicate the following:
+
+- Standard RD Plot, equally sized bins
+
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-33-1.png" width="90%" /&gt;
+]
+
+---
+
+# Take-Home/Assignment Questions (2/4)
+
+.pull-left[
+
+&lt;g&gt;Part 1:&lt;/g&gt; use `data_meyersson.csv`
+
+Replicate the following:
+
+- Standard RD Plot, equally sized bins
+
+- Then, zoom in `\(h=25\)` with a linear polynomial
+
+- And estimate `\(\hat{\tau_{SRD}}\)` (uniform `\(K()\)`)
+
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-34-1.png" width="90%" /&gt;
+]
+
+---
+
+# Take-Home/Assignment Questions (2/4)
+
+.pull-left[
+
+&lt;g&gt;Part 1:&lt;/g&gt; use `data_meyersson.csv`
+
+Replicate the following:
+
+- Standard RD Plot, equally sized bins
+
+- Then, zoom in `\(h=25\)` with a linear polynomial
+
+- And estimate `\(\hat{\tau_{SRD}}\)` (uniform `\(K()\)`)
+
+&lt;u&gt;**Final challenge**&lt;/u&gt;: retrieve `\(\hat{\mu_{+}} - \hat{\mu_{-}} = \hat{\tau_{SRD}}\)`
+
+- With the separate (local) linear regressions (`lm`)
+
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-35-1.png" width="90%" /&gt;
+]
+
+---
+
+# Take-Home/Assignment Questions (2/4)
+
+.pull-left[
+
+&lt;g&gt;Part 2:&lt;/g&gt; Alix-García et al. (2013) "*The Ecological Footprint of Poverty Alleviation: Evidence from Mexico's Oportunidades Program"*"
+
+- Does this cash transfers led to deforestation?
+
+- Program: &lt;o&gt;threshold based&lt;/o&gt; on amarginality index
+
+- Eligible municipalities: those with index `\(&gt; -1.2\)`
+
+
+]
+.pull-right[
+&lt;img src="figs/alix1.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Take-Home/Assignment Questions (2/4)
+
+.pull-left[
+
+With `data_alixgarcia.csv`
+  - Outcome: `pctdefor`
+  - Score: `indice95`
+  
+&lt;g&gt;RD Plot:&lt;/g&gt;
+
+- Optimal number of bins
+
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-36-1.png" width="90%" /&gt;
+]
+
+---
+
+# Take-Home/Assignment Questions (2/4)
+
+.pull-left[
+
+With `data_alixgarcia.csv`
+  - Outcome: `pctdefor`
+  - Score: `indice95`
+  
+&lt;g&gt;RD Plot:&lt;/g&gt;
+  - Unrestricted (optimal number of bins)
+  - With 20 bins in each side
+  
+Then, &lt;o&gt;RD Point Estimate&lt;/o&gt;
+  - Use `\(h=1\)`
+  - Multiply `pctdefor * 1e6`
+
+]
+.pull-right[
+&lt;img src="figs/class02/unnamed-chunk-37-1.png" width="90%" /&gt;
+]
+
+---
+
+
+```
+## Sharp RD estimates using local polynomial regression.
+## 
+## Number of Obs.                58587
+## BW type                      Manual
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                 3639        54948
+## Eff. Number of Obs.            3571        12279
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                   1.000        1.000
+## BW bias (b)                   1.000        1.000
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                    3639        54948
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional   399.298   151.453     2.636     0.008   [102.455 , 696.141]   
+##         Robust         -         -     0.980     0.327  [-197.815 , 593.287]   
+## =============================================================================
+```
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Thank you and
+
+# see you tomorrow!
+]
+
+---
+
+# References
+
+- Alix-Garcia, J., McIntosh, C., Sims, K.R. and Welch, J.R., 2013. The ecological footprint of poverty alleviation: evidence from Mexico's Oportunidades program. *Review of Economics and Statistics*, 95(2), pp.417-435.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
