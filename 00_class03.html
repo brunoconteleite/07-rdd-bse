@@ -80,7 +80,7 @@ o { color: rgb(240,138,33) }
 2. Score density test around the cutoff
 3. Treatment effects at artificial cutoff values
 4. Excluding observation close to cutoff
-5. Sensitivity to bandwidth/polynomial choices
+5. Sensitivity to bandwidth/polynomial choices/controlling for covariates
 
 Steps 1-5 are mandatory in &lt;g&gt;state-of-art RD work&lt;/g&gt; (best practice)!
 
@@ -264,7 +264,7 @@ Treatment manipulation `\(\leftrightarrow\)` density discontinuity in `\(X_i=c\)
 
 ---
 
-# Validating Sharp RD Designs (5/5): Polynomial and Bandwidth
+# Validating Sharp RD Designs (5/5): Robustness Checks
 
 &lt;u&gt;**Bandwidth choice `\(h\)`**&lt;/u&gt;: balances the *bias-variance tradeoff*
 
@@ -272,9 +272,19 @@ Treatment manipulation `\(\leftrightarrow\)` density discontinuity in `\(X_i=c\)
 
 - Nevertheless, it is good practice to verify how sensitive is `\(\hat{\tau}_{SRD}\)`
 
+--
+
 &lt;u&gt;**Polynomial choice `\(p\)`**&lt;/u&gt;: local nature of `\(\hat{\tau}_{SRD}\rightarrow\)` `\(p \leq 2\)` for baseline (linear in most cases)
 
 - However, good to check the robustness of `\(\hat{\tau}_{SRD}\)`
+
+--
+
+&lt;u&gt;**Controlling for covariates**&lt;/u&gt;: (quasi-) random nature of RD: no need for controls
+
+- Continuity of predetermined covariates validates that
+
+- Nevertheless, good practice is also to test the robustness to `\(\tau_{SRD}\)` with controls
 
 ---
 
@@ -357,12 +367,120 @@ Note: Sharp RD (left) is a &lt;g&gt;particular case of Fuzzy RD&lt;/g&gt; (why?)
 
 ---
 
+&lt;u&gt;Example 1&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*"
+
+- Maimonides rule in Israel: &lt;o&gt;maximum class size&lt;/o&gt; of 40 students; divided if enrolmment `\(&gt;40\)`
+
+.center[
+&lt;img src="figs/angrist1.png" style="width: 70%" /&gt;
+]
+
+---
+
 # Fuzzy RD Designs: Introduction
 
-&lt;u&gt;Example&lt;/u&gt;: Lodoño-Vélez et al. (2020)'s public subsidies on educational outcomes
+&lt;u&gt;Example 1&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*"
+
+Maimonides rule in Israel: &lt;o&gt;maximum class size&lt;/o&gt; of 40 students; divided if enrolmment `\(&gt;40\)`
+
+Why actual class size `\((D_i) \neq\)` the rule's size `\((T_i)\)`?
+
+- Capacity constraint in schools (e.g., cities with low/high budget)?
+
+- Strategic behaviour of families (e.g., sorting into bigger/smaller schools)?
+
+- Enrolling `\(\neq\)` attending school (i.e., drop out behaviour)?
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+&lt;u&gt;Example 1&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*"
+
+.pull-left[
+- Who are the compliers?
+
+- Always takers?
+]
+.pull-right[
+- Never-takers?
+
+- Defiers?
+]
+
+&lt;br&gt;
+--
+
+&lt;o&gt;Are they correlated&lt;/o&gt; with `\(Y_i(1), Y_i(0), D_i\)`?
+  
+- Actually, what are `\(D_i\)` and `\(T_i\)` in this setting?
+
+**Clarifying this** is key in a Fuzzy RD setting!
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+&lt;u&gt;Example 2&lt;/u&gt;: Lodoño-Vélez et al. (2020) "*Upstream and downstream &lt;g&gt;impacts of college merit-based financial aid&lt;/g&gt; for low-income students*"
+
+Large scale SPP program in Colombia: &lt;g&gt;merit-based&lt;/g&gt; financial aid for &lt;o&gt;low-income&lt;/o&gt; students
+
+- Financial aid (SPP grant) based on grades (standardized high school exit exam)
+
+&lt;br&gt;
+
+What are the treatment assignment `\((T_i)\)` and take-up `\((D_i)\)`?
+
+- Who are compliers, defiers, ...?
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+&lt;u&gt;Example 2&lt;/u&gt;: Lodoño-Vélez et al. (2020) "*Upstream and downstream &lt;g&gt;impacts of college merit-based financial aid&lt;/g&gt; for low-income students*"
 
 .center[
 &lt;img src="figs/lodono1.png" style="width: 90%" /&gt;
+]
+
+---
+
+# Fuzzy RD Designs: Introduction
+
+&lt;u&gt;Example 3&lt;/u&gt;: Alix-García et al. (2013) "*The Ecological Footprint of Poverty Alleviation: Evidence from Mexico's Oportunidades Program"*"
+
+Does this cash transfers (*Oportunidades*) led to deforestation?
+
+- Program: &lt;o&gt;threshold based&lt;/o&gt; on a marginality index
+
+  - Eligible municipalities: those with index `\(&gt; -1.2\)`
+  
+- Effective grant (enrollment) based on subsequent survey
+
+  - Municipalities with schools, hospitals, etc
+  
+  - Idea: grant target was to `\(\uparrow\)` school enrolment, `\(\downarrow\)` child labor, etc
+  
+---
+
+# Fuzzy RD Designs: Introduction
+
+.pull-left[
+&lt;img src="figs/alix1.png" style="width: 90%" /&gt;
+]
+.pull-right[
+&lt;img src="figs/alix2.png" style="width: 90%" /&gt;
+]
+
+.center[
+**Again:** what are `\(D_i\)` and `\(T_i\)`, who are compliers, ...?
+]
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Fuzzy RD in Practice
+
 ]
 
 ---
@@ -442,17 +560,6 @@ If so, `\(\hat{\tau}_{FRD} \equiv\)` &lt;u&gt;Local Average Treatment Effects (L
 
 # Fuzzy RD Designs: Treatment Effects
 
-&lt;u&gt;Illustration&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*" (school enrolment cohorts should be divided if `\(\geq 40\)` students)
-
-.center[
-&lt;img src="figs/angrist1.png" style="width: 70%" /&gt;
-]
-
-
----
-
-# Fuzzy RD Designs: Treatment Effects
-
 &lt;u&gt;Implementation&lt;/u&gt;: Sharp RD methods for `\(\tau_{ITT}\)` and `\(\tau_{FS}\)` (or `rdrobust` altogether). &lt;o&gt;Remarks:&lt;/o&gt;
 
 - **Bandwidth**: `\(\tau_{FRD} \equiv\)` ratio, thus `\(h\)` &lt;g&gt;must be the same&lt;/g&gt; for `\(\tau_{ITT}\)` and `\(\tau_{FS}\)`
@@ -467,9 +574,79 @@ If so, `\(\hat{\tau}_{FRD} \equiv\)` &lt;u&gt;Local Average Treatment Effects (L
 
   - Continuity of covariates and Density tests &lt;g&gt;must done with ITT effects!&lt;/g&gt;
 
---
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Fuzzy RD in Practice
+
+# Practical Examples
+
+]
+
+---
+
+# Fuzzy RD Designs: Practical Examples
+
+&lt;u&gt;Example 2&lt;/u&gt;: Lodoño-Vélez et al. (2020) "*Upstream and downstream &lt;g&gt;impacts of college merit-based financial aid&lt;/g&gt; for low-income students*"
+
+.center[
+&lt;img src="figs/lodono1.png" style="width: 90%" /&gt;
+]
+
+---
+
+# Fuzzy RD Designs: Practical Examples
+
+&lt;u&gt;Example 2&lt;/u&gt;: Lodoño-Vélez et al. (2020) "*Upstream and downstream &lt;g&gt;impacts of college merit-based financial aid&lt;/g&gt; for low-income students*"
+
+If &lt;o&gt;interest is ITT&lt;/o&gt; `\((\tau_{ITT})\)`:
+`\begin{align}
+Y_i &amp;= \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \tau_{ITT} T_i +  \sum\limits_{r = 1}^p \gamma^r (X_i - c)^r T_i + \varepsilon_i
+\end{align}`
+
+---
+
+# Fuzzy RD Designs: Practical Examples
+
+&lt;u&gt;Example 2&lt;/u&gt;: Lodoño-Vélez et al. (2020) "*Upstream and downstream &lt;g&gt;impacts of college merit-based financial aid&lt;/g&gt; for low-income students*"
+
+If &lt;o&gt;interest is LATE&lt;/o&gt; `\((\tau_{FRD})\)`:
+
+`\begin{align}
+Y_i &amp;= \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \tau_{FRD} \hat{D}_i +  \sum\limits_{r = 1}^p \gamma^r (X_i - c)^r \hat{D}_i + \varepsilon_i \\
+\hat{D}_i &amp;= \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_i - c)^r + \tau_{FS} T_i +  \sum\limits_{r = 1}^p \gamma^r (X_i - c)^r T_i
+\end{align}`
+i.e., a 2SLS IV regression using
+- Exam cutoff `\(T_i\)` as an instrument for SPP recipient `\(D_i\)`
+
+---
+
+# Fuzzy RD Designs: Practical Examples
+
+&lt;u&gt;Illustration&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*" (school enrolment cohorts should be divided if `\(\geq 40\)` students)
+
+.center[
+&lt;img src="figs/angrist1.png" style="width: 70%" /&gt;
+]
+
+---
+
+# Fuzzy RD Designs: Practical Examples
+
+&lt;u&gt;Illustration&lt;/u&gt;: Angrist and Lavy (1999) "*Using Maimonides' rule to estimate the &lt;g&gt;effect of class size on scholastic achievement&lt;/g&gt;*" (school enrolment cohorts should be divided if `\(\geq 40\)` students)
 
 &lt;br&gt;
+
+&lt;br&gt;
+
+.center[
+How to estimate `\(\tau_{ITT}\)` and `\(\tau_{FRD}\)`?
+]
+
+---
+
+# Fuzzy RD Designs: Wrapping up
 
 In practice, &lt;u&gt;Fuzzy RD is easily implemented&lt;/u&gt; (`rdrobust` has a `fuzzy` option)
 
