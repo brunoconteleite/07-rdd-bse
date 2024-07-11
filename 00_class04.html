@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 04 - Regression Discontinuity Designs in Development Economics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bruno Conte" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer-bse.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 04 - Regression Discontinuity Designs<br>in Development Economics
+]
+.subtitle[
+## Theory and Practice
+]
+.author[
+### Bruno Conte
+]
+.institute[
+### Barcelona School of Economics
+]
+.date[
+### 11/Jul/2024
+]
+
+---
+
+
+
+
+&lt;style&gt;
+g { color: rgb(0,130,155) }
+o { color: rgb(240,138,33) }
+&lt;/style&gt;
+
+
+# RDD in Development Economics: Schedule
+
+1. ~~Introduction to treatment effects and RDD~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[08/Jul/2024]**
+
+2. ~~Sharp RD Design (Basics)~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[09/Jul/2024]**
+
+3. ~~Sharp RD Design (Extensions) + Fuzzy RD Design~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[10/Jul/2024]**
+
+4. Spatial Regression Discontinuities (and more) &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[11/Jul/2024]**
+    - Multi-cutoff RD Designs
+    - Multi-score RD Designs
+    - Spatial RD as a multi-score&lt;br&gt; &lt;br&gt;
+
+5. Additional RDD Methods &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[12/Jul/2024]**
+
+---
+
+# Main References for this Class
+
+1. Cattaneo, M.D., Idrobo, N. and Titiunik, R., 2023. &lt;g&gt;A practical introduction to regression discontinuity designs: Extensions&lt;/g&gt;. arXiv preprint arXiv:2301.08958.
+    
+  - Chapter 5
+
+---
+
+# Multi-dimensional RD settings
+
+We have so far covered &lt;g&gt;sharp and fuzzy RD designs&lt;/g&gt;
+
+Common features there were:
+
+1. Unique cutoff `\(c\)`
+
+2. Unidimensional score `\(X_i\)`
+
+
+&lt;u&gt;**This class:**&lt;/u&gt; we relax these assumptions in a &lt;o&gt;Sharp RD&lt;/o&gt; setting (for simplicity)
+
+- Extensions to Fuzzy RD are straightforward
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Multi-cutoff RD Designs
+
+]
+
+---
+
+# Multi-cutoff RD: Introduction
+
+Some score-contingent policy can have several cutoffs
+
+.center[
+&lt;img src="figs/angrist1.png" style="width: 70%" /&gt;
+]
+
+---
+
+# Multi-cutoff RD: Introduction
+
+Some score-contingent policy can have several cutoffs
+
+&lt;u&gt;Other examples&lt;/u&gt;:
+
+- Exam scores for accessing universities:
+
+  - Smaller cutoffs for &lt;g&gt;disadvantaged background&lt;/g&gt; units
+
+- Conditions for accessing unemployment benefits:
+
+  - Occupation-specific &lt;o&gt;union agreements?&lt;/o&gt;
+
+--
+
+&lt;br&gt;
+
+**More generally:** in a RD Setting, units can potentially have `\(\neq c\)`
+
+
+---
+
+# Multi-cutoff RD: Formalizing
+
+More formally, a multi-cutoff RD assumes that the &lt;g&gt;cutoff is a random variable&lt;/g&gt;
+`$$C_i \in \mathcal{C} = \{ c_1, c_2, ..., c_C \}$$`
+that can assume `\(C\)` potential values.
+
+- &lt;u&gt;Class size&lt;/u&gt;: `\(c_1 = 40\)` for smaller cohorts, `\(c_2 = 80\)` for medium cohorts, ...
+
+More generally, `\(\neq c\)` based on `\(i\)`'s characteristics. Treatment is defined as
+`$$T_i(c) = 1 \left( X_i \geq c \right) \quad \forall c \in \mathcal{C}$$`
+that is, there is a &lt;o&gt;potential treatment assignment&lt;/o&gt; for each cutoff
+
+---
+
+# Multi-cutoff RD: Formalizing
+
+Note that single cutoff RD is a &lt;g&gt;particular case of multi-cutoff&lt;/g&gt; where `\(\mathcal{C} = c\)` and, hence
+`$$\mathbb{P} \left( C_i = c \right) = 1$$`
+In &lt;o&gt;multi-cutoff&lt;/o&gt; RD, we have
+`$$\mathbb{P} \left( C_i = c \right) \in \left(0,1\right) \quad \forall c \in \mathcal{C}$$`
+&lt;u&gt;Intuition&lt;/u&gt;: for 2 cutoffs `\(c_1 &gt; c_2\)`
+
+- Given `\(c_1\)`, units in high-performing regions have `\(\mathbb{P} \left[ C_i = c \right]=1\)`; `\(=0\)` if low-performing
+
+Hence, potential outcomes `\(\equiv Y_i(1,c), Y_i(0,c)\)` become &lt;g&gt;cutoff-specific&lt;/g&gt;
+
+---
+
+In practice, multi-cutoffs are either &lt;g&gt;cummulative or non-cummulative&lt;/g&gt;
+
+--
+
+.pull-left[
+&lt;u&gt;**Cummulative**&lt;/u&gt; multi-cutoff RD:
+
+- Effects of `\(c \in \mathcal{C}\)` compound over `\(X_i\)`
+
+- Each unit `\(i\)` is (relatively) exposed to all `\(c\)`
+
+- Different "treatment dosis" based on `\(X_i - c_1\)`, `\(X_i - c_2\)`, ...
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo25.png" style="width: 90%" /&gt;
+]
+
+---
+
+In practice, multi-cutoffs are either &lt;g&gt;cummulative or non-cummulative&lt;/g&gt;
+
+.pull-left[
+&lt;u&gt;**Cummulative**&lt;/u&gt; multi-cutoff RD:
+
+- Effects of `\(c \in \mathcal{C}\)` compound over `\(X_i\)`
+
+- Each unit `\(i\)` is (relatively) exposed to all `\(c\)`
+
+- Different "treatment dosis" based on `\(X_i - c_1\)`, `\(X_i - c_2\)`, ...
+
+&lt;o&gt;Out of the scope&lt;/o&gt; of this course
+
+- Issues with common support, ...
+
+- See Chapter 5.1.1 for details
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo25.png" style="width: 90%" /&gt;
+]
+
+---
+
+# Multi-cutoff RD: Illustration
+
+Angrist and Lavy (1999): example of cummulative multi-score RD
+
+.center[
+&lt;img src="figs/angrist1.png" style="width: 70%" /&gt;
+]
+
+---
+
+In practice, multi-cutoffs are either &lt;g&gt;cummulative or non-cummulative&lt;/g&gt;
+.pull-left[
+
+&lt;u&gt;**Non-Cummulative**&lt;/u&gt;: our focus today
+
+]
+.pull-right[
+
+]
+
+
+---
+
+In practice, multi-cutoffs are either &lt;g&gt;cummulative or non-cummulative&lt;/g&gt;
+.pull-left[
+
+&lt;u&gt;**Non-Cummulative**&lt;/u&gt;: our focus today
+
+- Each unit has one `\(c \in \mathcal{C}\)` cutoff
+
+- Put differently, the a `\(X_i = x\)` can imlpy `\(\neq\)` treatment status
+
+&lt;g&gt;Tractable setting&lt;/g&gt;
+
+- Samples (and effects) can be sliced
+
+- &lt;o&gt;Intuition:&lt;/o&gt; there can be `\(\neq\)` `\(\tau\)` depending on cutoff `\(c\)`
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo26.png" style="width: 85%" /&gt;
+]
+
+---
+
+# Non-Cummulative Multi-cutoff RD: Two Approaches
+
+--
+
+.pull-left[
+
+&lt;u&gt;Cutoff-specific Treatment Effects&lt;/u&gt;:
+`$$\tau_{SRD}(c) \equiv \mathbb{E} \left[ Y_i(1,c) - Y_i(0,c) | X_i = c, C_i = c \right]$$`
+what is the sample counterpart?
+
+]
+
+---
+
+# Non-Cummulative Multi-cutoff RD: Two Approaches
+
+.pull-left[
+
+&lt;u&gt;Cutoff-specific Treatment Effects&lt;/u&gt;:
+`$$\tau_{SRD}(c) \equiv \mathbb{E} \left[ Y_i(1,c) - Y_i(0,c) | X_i = c, C_i = c \right]$$`
+what is the sample counterpart?
+`$$\hat{\tau}_{SRD}(c) \equiv \lim_{x \downarrow c}\hat{\mathbb{E}} \left[ Y_i | X_i = c \right] - \lim_{x \uparrow c}\hat{\mathbb{E}} \left[ Y_i | X_i = c \right] \\ \forall i: \mathbb{P}(C_i=c)=1$$`
+that is, &lt;o&gt;different treat. effects&lt;/o&gt; for different subsamples!
+
+]
+
+---
+
+# Non-Cummulative Multi-cutoff RD: Two Approaches
+
+.pull-left[
+
+&lt;u&gt;Cutoff-specific Treatment Effects&lt;/u&gt;:
+`$$\tau_{SRD}(c) \equiv \mathbb{E} \left[ Y_i(1,c) - Y_i(0,c) | X_i = c, C_i = c \right]$$`
+what is the sample counterpart?
+`$$\hat{\tau}_{SRD}(c) \equiv \lim_{x \downarrow c}\hat{\mathbb{E}} \left[ Y_i | X_i = c \right] - \lim_{x \uparrow c}\hat{\mathbb{E}} \left[ Y_i | X_i = c \right] \\ \forall i: \mathbb{P}(C_i=c)=1$$`
+that is, &lt;o&gt;different treat. effects&lt;/o&gt; for different subsamples!
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo27.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Non-Cummulative Multi-cutoff RD: Two Approaches
+
+.pull-left[
+
+&lt;u&gt;Normalized-and-pooled Treatment Effects&lt;/u&gt; 
+
+- Non cumm. `\(\rightarrow X_i\)` can be normalized
+`$$\tilde{X}_i = X_i - C_i$$`
+- Hence, we have a &lt;g&gt;unique treatment&lt;/g&gt; `\(T_i\)`
+`$$T_i = 1(X_i - C_i \geq 0) = 1(\tilde{X}_i \geq 0)$$`
+for all units!
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo27.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Non-Cummulative Multi-cutoff RD: Two Approaches
+
+.pull-left[
+
+&lt;u&gt;Normalized-and-pooled Treatment Effects&lt;/u&gt; 
+
+- We estimate `\(\tau_{SRD}^P\)` with
+`$$\hat{\tau}_{SRD}^P \equiv \lim_{x \downarrow 0}\hat{\mathbb{E}} \left[ Y_i | \tilde{X}_i = x \right] - \lim_{x \uparrow 0}\hat{\mathbb{E}} \left[ Y_i | \tilde{X}_i = x \right]$$`
+
+Note: `\(\tau_{SRD}^P \sim\)` is a average `\(\{ \tau_{SRD}(c) \}_c\)`!
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo27.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Non-Cummulative Multi-cutoff RD: Two Approaches
+
+.pull-left[
+
+&lt;u&gt;Normalized-and-pooled Treatment Effects&lt;/u&gt; 
+
+- We estimate `\(\tau_{SRD}^P\)` with
+`$$\hat{\tau}_{SRD}^P \equiv \lim_{x \downarrow 0}\hat{\mathbb{E}} \left[ Y_i | \tilde{X}_i = x \right] - \lim_{x \uparrow 0}\hat{\mathbb{E}} \left[ Y_i | \tilde{X}_i = x \right]$$`
+
+Note: `\(\tau_{SRD}^P \sim\)` is a average `\(\{ \tau_{SRD}(c) \}_c\)`!
+
+- Any &lt;o&gt;**questions?**&lt;/o&gt;
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo27.png" style="width: 100%" /&gt;
+]
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Multi-score RD Designs
+
+]
+
+---
+
+# Multi-score RD: Introduction
+
+&lt;u&gt;Common feature so far&lt;/u&gt;: score `\(X_i\)` and cutoff `\(c\)` are &lt;g&gt;unidimensional&lt;/g&gt;
+
+In many settings, this is not the case
+
+- Example: scholarship based on grades on mathematics and language tests
+
+--
+
+- Lodoño-Vélez et al. (2020): &lt;g&gt;merit-based&lt;/g&gt; financial aid for &lt;o&gt;low-income&lt;/o&gt; students
+
+--
+
+- Geographical/Spatial RD: score are coordinates (longitude/latitude)
+
+&lt;br&gt;
+
+.center[How to infer treatment effects in these &lt;o&gt;**multidimensional**&lt;/o&gt; settings?]
+
+---
+
+# Multi-score RD: Formalizing
+
+In a Multi-score RD, the score is a `\(S\)`-dimension plane
+`$$\mathbf{X}_i = \left( X_{1i}, X_{2i}, ... , X_{Si} \right)'$$`
+where each `\(S\)` is a specific criteria in reality. Then, treatment `\(T_i\)` is defined as
+`$$T_i = a\left( \mathbf{X}_i \right): \mathbb{R}^S \rightarrow \{0,1 \}$$`
+--
+
+In a &lt;g&gt;Sharp RD setting&lt;/g&gt;, this simplifies to
+`$$a\left( \mathbf{X}_i \right) = \prod_{s}^S 1 \left( X_{si} \geq b_s \right),$$`
+where `\(\{ b_s \}_{s \in S} \equiv\)` score-specific cutoffs
+
+
+---
+
+# Multi-score RD: Formalizing
+
+&lt;u&gt;Example&lt;/u&gt;: Lodoño-Vélez et al. (2020) "*Upstream and downstream &lt;g&gt;impacts of college merit-based financial aid&lt;/g&gt; for low-income students*"
+
+"*Oportunidades*" in Colombia: **merit-based** (exam) financial aid for &lt;o&gt;low-income&lt;/o&gt; students
+`$$\begin{equation}\mathbf{X}_i = \left( X_{1i}, X_{2i} \right)'\rightarrow\begin{cases}X_{1i} \equiv \text{ High school exam score} \\ X_{2i} \equiv \text{ Family income}\end{cases}\end{equation}$$`
+where `\(\{ b_1, b_2 \}\)` are the respective cutoffs `\(c\)`. Sharp RD `\(T_i\)` becomes
+`$$T_i = 1\left( X_{1i} \geq b_1\right) \times 1\left( X_{2i} \geq b_2 \right)$$`
+&lt;u&gt;Intuition&lt;/u&gt;: high performing students in high-income families are not eligible/treated
+
+---
+
+# Multi-score RD: Formalizing
+
+.pull-left[
+
+Multi-score RD have a &lt;g&gt;cutoff boundary&lt;/g&gt;
+`$$\mathcal{B} = \{ \mathbf{x} \in \mathbb{R}^S : \mathbf{x} \in \left ( \texttt{bd} \left( \mathcal{A}_1 \right) \cap \texttt{bd} \left( \mathcal{A}_0 \right) \right) \},$$`
+where `\(\mathcal{A}_1 = \{ \mathbf{x} \in \mathbb{R}^S : a(\mathbf{x}) =1 \}\)`
+
+Hence, multi-score RD &lt;o&gt;is also multi-cutoff&lt;/o&gt;
+
+- For each `\(X_{si} \rightarrow \mathcal{C}_s = \{ b_s \} \in \mathbb{R}^1\)`
+
+- However, infinite `\(\mathbf{b} \in \mathcal{B}\)`
+
+- Thus, infinite potential treatment assignment by `\(a(\mathbf{b})\)`
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo28.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Multi-score RD: Formalizing
+
+.pull-left[
+
+&lt;u&gt;**Geographic RD:**&lt;/u&gt; particular multi-score RD
+`$$\mathbf{X}_i = \left( \text{longitude}_{i}, \text{latitude}_{i} \right)'$$`
+- Infinite coordinates `\(\mathbf{b} \in \mathcal{B} \rightarrow T_i\)`
+
+&lt;g&gt;Illustration:&lt;/g&gt; one can define
+`$$T_i = a\left(\mathbf{X}_i \right) \equiv 1 \left( \text{distance}_i \text{ from } \mathcal{B} \geq 0 \right),$$`
+where distance `\(&lt;0 \equiv\)` control area
+
+&lt;o&gt;This is not&lt;/o&gt; the only approach to it!
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo29.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Multi-score RD: Formalizing
+
+&lt;g&gt;Analogously to multi-cutoff&lt;/g&gt;, in multi-score RD have `\(\mathbf{b}\)`-specific treatment effects
+`$$\tau_{SMS} \left( \mathbf{b} \right) \equiv \mathbb{E} \left[ Y_i(1) - Y_i(0) | \mathbf{X}_i = \mathbf{b} \right], \quad \mathbf{b} \in \mathcal{B}$$`
+whose empirical counterpart is
+`$$\hat{\tau}_{SMS}(\mathbf{b}) \equiv \lim_{\mathbf{x} \rightarrow \mathbf{b}:\mathbf{x} \in \mathcal{A}_1}\hat{\mathbb{E}} \left[ Y_i | \mathbf{X}_i = \mathbf{x} \right] \quad - \lim_{\mathbf{x} \rightarrow \mathbf{b}:\mathbf{x} \in \mathcal{A}_0}\hat{\mathbb{E}} \left[ Y_i | \mathbf{X}_i = \mathbf{x} \right] \quad \mathbf{b} \in \mathcal{B}$$`
+
+Estimation approaches are &lt;o&gt;also analogous&lt;/o&gt;
+
+- `\(\hat{\tau}_{SMS}(\mathbf{b}) \equiv \mathbf{b}\)`-specific Treatment Effects 
+
+- `\(\hat{\tau}_{SMS}^P \equiv\)` Normalized-and-pooled Treatment Effects
+
+---
+
+# Multi-score RD: Formalizing
+
+.pull-left[
+&lt;u&gt;Illustration&lt;/u&gt;: Lodoño-Vélez et al. (2020):
+
+- `\(X_{1i} = \texttt{SABER11}_i \equiv\)` test score
+
+- `\(X_{2i} = \texttt{SISBEN}_i \equiv\)` wealth index
+`$$T_i = 1\left( X_{1i} \geq 0 \right)1\left( X_{2i} \geq 0 \right)$$`
+
+How to obtain `\(\hat{\tau}_{SMS}(\mathbf{b})\)`?
+
+- Choose a grid of `\(\mathbf{b} \in \mathcal{B}\)` by &lt;g&gt;discretization&lt;/g&gt;
+
+- Shrink `\(\mathbf{X}_i \in \mathbb{R}^S \rightarrow X_i \in \mathbb{R}_{+}\)` (i.e., create a &lt;o&gt;one-dimensional score&lt;/o&gt; `\(X_i\)`)
+
+
+]
+.pull-right[
+.center[&lt;img src="figs/cattaneo30.png" style="width: 100%" /&gt;
+*(normalized scores)*]
+]
+
+---
+
+# Multi-score RD: Formalizing
+
+Shrinking `\(\mathbf{X}_i \in \mathbb{R}^S \rightarrow X_i \in \mathbb{R}_{+}\)`:
+`$$\begin{equation}X_i \equiv \mathcal{D}_i(\mathbf{b}) = d(\mathbf{X}_i,\mathbf{b})a(\mathbf{X}_i) - d(\mathbf{X}_i,\mathbf{b})(1-a(\mathbf{X}_i))=\begin{cases}d(\mathbf{X}_i,\mathbf{b}) \text{ if } T_i = 1 \\ -d(\mathbf{X}_i,\mathbf{b}) \text{ if } T_i = 0\end{cases}\end{equation}$$`
+where `\(d : \mathbb{R}^S \times \mathbb{R}^S \rightarrow \mathbb{R}_{+} \equiv\)` distance metric (what is cutoff `\(c\)` here?)
+
+--
+
+For instance, `\(d(\mathbf{X}_i,\mathbf{b}) = \sqrt{\sum_{s}^S (X_{si}-b_s)^2} \equiv\)` Eclidian distance
+
+---
+
+# Multi-score RD: Formalizing
+
+Hence, &lt;u&gt;Boundary-Specific&lt;/u&gt; treatment effects are estimated with
+`$$\hat{\tau}_{SMS}(\mathbf{b}) \equiv \lim_{x \downarrow 0}\hat{\mathbb{E}} \left[ Y_i | \mathcal{D}_i(\mathbf{b}) = x \right] - \lim_{x \uparrow 0}\hat{\mathbb{E}} \left[ Y_i | \mathcal{D}_i(\mathbf{b}) = x \right]$$`
+
+--
+
+Instead, for &lt;u&gt;Normalized-and-Pooled&lt;/u&gt; treatment effects, one defines
+`$$X_i \equiv \mathcal{D}_i = d(\mathbf{X}_i)a(\mathbf{X}_i) - d(\mathbf{X}_i)(1-a(\mathbf{X}_i)), \text{ where } d(\mathbf{X}_i) = \min_{b \in \mathcal{B}} \{d(\mathbf{X}_i,\mathbf{b}) \}$$`
+and estimates
+`$$\hat{\tau}_{SMS}^P \equiv \lim_{x \downarrow 0}\hat{\mathbb{E}} \left[ Y_i | \mathcal{D}_i = x \right] - \lim_{x \uparrow 0}\hat{\mathbb{E}} \left[ Y_i | \mathcal{D}_i = x \right]$$`
+
+---
+
+# Multi-score RD: Formalizing
+
+.pull-left[
+
+&lt;u&gt;Important&lt;/u&gt;: Euclidean distance is not the only distance metric for `\(d(\mathbf{X}_i, \mathbf{b})\)`
+
+- What about weights associated to each score (math, language, etc.)?
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo28.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Multi-score RD: Formalizing
+
+.pull-left[
+
+&lt;u&gt;Important&lt;/u&gt;: Euclidean distance is not the only distance metric for `\(d(\mathbf{X}_i, \mathbf{b})\)`
+
+- What about weights associated to each score (math, language, etc.)?
+
+- &lt;g&gt;Spatial RD:&lt;/g&gt; geographical distance `\(\neq\)` euclidean
+
+- What about distance over road networks, ...?
+  
+- Geographical distances: GIS tools (beyond our scope; check [&lt;u&gt;here&lt;/u&gt;](https://brunoconteleite.github.io/02-gis-unibo/))
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo29.png" style="width: 100%" /&gt;
+]
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Multi-dimensional RD
+
+# Wrapping up
+
+]
+
+---
+
+# Multi-dimensional RD: Wrapping up
+
+Today, we studied &lt;o&gt;multi-dimensional RD&lt;/o&gt; settings
+
+- Multi-cutoff and/or multi-score RD settings
+
+- Spatial RD: particular case of multi-score+cutoff RD
+
+&lt;br&gt;
+
+While &lt;g&gt;apparently elaborate&lt;/g&gt;, good practice consists of simple subsetting/normalization steps
+
+- At the end, complex RD settings `\(\rightarrow\)` Sharp RD
+
+- Interpretation, and external validity, must be taken with care
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Thank you and
+
+# see you later!
+
+]
+
+---
+
+# References
+
+- Londoño-Vélez, J., Rodríguez, C. and Sánchez, F., 2020. Upstream and downstream impacts of college merit-based financial aid for low-income students: Ser Pilo Paga in Colombia. *American Economic Journal: Economic Policy*, 12(2), pp.193-227.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
