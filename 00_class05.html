@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 05 - Regression Discontinuity Designs in Development Economics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bruno Conte" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer-bse.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Lecture 05 - Regression Discontinuity Designs<br>in Development Economics
+]
+.subtitle[
+## Theory and Practice
+]
+.author[
+### Bruno Conte
+]
+.institute[
+### Barcelona School of Economics
+]
+.date[
+### 12/Jul/2024
+]
+
+---
+
+
+
+
+&lt;style&gt;
+g { color: rgb(0,130,155) }
+o { color: rgb(240,138,33) }
+&lt;/style&gt;
+
+
+# RDD in Development Economics: Schedule
+
+1. ~~Introduction to treatment effects and RDD~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[08/Jul/2024]**
+
+2. ~~Sharp RD Design (Basics)~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[09/Jul/2024]**
+
+3. ~~Sharp RD Design (Extensions) + Fuzzy RD Design~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; **[10/Jul/2024]**
+
+4. ~~Spatial Regression Discontinuities (and more)~~ &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[11/Jul/2024]**&lt;br&gt; &lt;br&gt;
+
+5. Additional RDD Methods &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;**[12/Jul/2024]**
+    - Local Randomization RD Approach
+    - RD Designs with Discrete Scores
+    - Extensions: Kink RDs and Disc-in-Diff
+
+---
+
+# Main References for this Class
+
+1. Cattaneo, M.D., Idrobo, N. and Titiunik, R., 2023. &lt;g&gt;A practical introduction to regression discontinuity designs: Extensions&lt;/g&gt;. arXiv preprint arXiv:2301.08958.
+    
+  - Chapter 2 and 4
+
+---
+
+# RD Designs so far
+
+We have so far covered &lt;g&gt;sharp, fuzzy, and extensions of RD designs&lt;/g&gt; under two crucial assumptions:
+
+1. Continuity assumptions
+
+2. Continuous score variable `\(X_i\)`
+
+&lt;u&gt;**This class:**&lt;/u&gt; we relax these assumptions (in a Sharp RD setting)
+
+--
+
+We will also cover additional aspects of &lt;o&gt;frontier RD methods:&lt;/o&gt;
+
+- Kink RD Designs
+
+- Dynamic RD settings: Differences-in-Discontinuities
+
+---
+
+# Before Starting: Follow-up
+
+I would be interested in &lt;u&gt;feedback from you&lt;/u&gt;
+
+- &lt;g&gt;Course pace&lt;/g&gt;, contents, (lack of) complexity?
+
+- Timetable, exercise?
+
+- Course format (exposition + practice)?
+
+- The instructor? ;)
+
+Anything else (survey and/or email if not comfortable)?
+
+- Actually, please do the &lt;o&gt;survey!&lt;/o&gt; :)
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Relaxing Continuity Assumptions:
+
+# Local Randomization Approach to RD
+
+]
+
+---
+
+# Step back: Continuity-Based RD
+
+&lt;u&gt;**Recall:**&lt;/u&gt; our aim is to estimate the effects of `\(T_i\)` on `\(Y_i = T_i Y_i(1) + (1 - T_i) Y_i(0)\)`, but
+`$$Y_i(1), Y_i(0) \not\perp T_i | X_i$$`
+
+To overcome that, RD assumes treatment discontinuity
+`$$\lim_{x \downarrow c} \mathbb{P}(T_i = 1 | X_i = x) \neq \lim_{x \uparrow c} \mathbb{P}(T_i = 1 | X_i = x)$$`
+and &lt;g&gt;continuity of potential outcomes&lt;/g&gt;
+`$$\lim_{x \downarrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] = \lim_{x \uparrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] \quad \forall j = 0,1$$`
+These are the assumptions of the &lt;o&gt;continuity-based&lt;/o&gt; RD approach
+- Last class: alternative *local randomization approach*
+
+---
+
+# Step back: Continuity-Based RD
+
+Actually, early RD work did not treated it as such
+
+- Thistlethwaite and Campbell (1960) read &lt;o&gt;RD as a random experiment&lt;/o&gt;
+
+Hence, units above/below would be &lt;g&gt;purely comparable&lt;/g&gt;
+
+- Also with respect with potential outcomes `\(Y_i(1)\)` and `\(Y_i(0)\)`
+
+Cattaneo et al. (2015) revist this interpreting RD as a &lt;u&gt;local random experiment&lt;/u&gt;
+
+--
+
+## Continuity-Based RD versus Local Randomization RD
+
+&lt;u&gt;Experiment&lt;/u&gt;: random draw `\(X_i \in [0,1]\)`, treat units `\(X_i&gt;c=0.5\)`
+
+---
+
+RD have an &lt;o&gt;equivalence with randomized experiments&lt;/o&gt;
+
+.pull-left[
+&lt;img src="figs/cattaneo32.png" style="width: 100%" /&gt;
+]
+.pull-right[
+
+]
+
+---
+
+RD effects are &lt;g&gt;heterogeneous&lt;/g&gt;, while constant if randomized (how to estimate `\(\tau_{ATE}\)`?)
+
+.pull-left[
+&lt;img src="figs/cattaneo32.png" style="width: 100%" /&gt;
+]
+.pull-right[
+&lt;img src="figs/cattaneo33.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Local Randomization RD
+
+.pull-left[
+&lt;u&gt;Local Randomization RD&lt;/u&gt;:
+
+- Assumes a **local randomized experiment**
+
+Idea: close to `\(w\)`, &lt;g&gt;units are comparable&lt;/g&gt;
+
+- And so are `\(Y_i(1), Y_i(0)\)`
+
+- `\(w \equiv\)` cutoff window
+
+Important: &lt;o&gt;stronger assumptions&lt;/o&gt; than continuity-based RD
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo34.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Local Randomization RD
+
+.pull-left[
+&lt;u&gt;Local Randomization RD&lt;/u&gt;:
+
+- `\(\theta_{SRD} \equiv\)` loc. rand. treat. effects
+
+- How different is it from `\(\tau_{SRD}\)` `\((p=0)\)`?
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo34.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Local Randomization RD
+
+.pull-left[
+&lt;u&gt;Local Randomization RD&lt;/u&gt;:
+
+- `\(\theta_{SRD} \equiv\)` loc. rand. treat. effects
+
+- How different is it from `\(\tau_{SRD}\)` `\((p=0)\)`?
+
+&lt;g&gt;Answer:&lt;/g&gt; bandwith `\(h\)` versus window `\(w\)`
+
+- Continuity-based RD: `\(h\)` based on `\(Y_i\)`
+
+- Window `\(w\)`: &lt;o&gt;best balances covariates&lt;/o&gt; `\(Z_i\)`
+
+]
+.pull-right[
+&lt;img src="figs/cattaneo35.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Local Randomization RD
+
+.pull-left[
+&lt;u&gt;Local Randomization RD&lt;/u&gt;:
+
+- Not applicable to all settings!
+
+  - Some settings: clear `\(Z_i\)` heterogeneity
+
+- In other words, `\(T_i \not\rightarrow\)` (local) random experiment
+
+If potential outcomes `\(\equiv\)` smooth function of `\(X_i\)` and `\(Z_i\)`
+
+- Continuous-based RD is suitable
+
+]
+.pull-right[
+&lt;img src="figs/britto2022_3.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Local Randomization RD
+
+So, when is &lt;o&gt;continuity-based or local randomization&lt;/o&gt; RD preferred?
+
+&lt;u&gt;Continuity-based&lt;/u&gt;: when there is &lt;g&gt;enough observations&lt;/g&gt; close to `\(c\)`
+
+- Recall: issue with continuity is the approximation of local polynomials
+
+- Less observations, higher bias (even if adjusting `\(h\)`) and risk of overfitting
+  
+--
+
+&lt;br&gt;
+
+&lt;u&gt;Local Randomization&lt;/u&gt;: suitable for settings with &lt;g&gt;less data&lt;/g&gt; close to cutoff `\(c\)`
+
+- Also, it is preferred when `\(X_i\)` is discrete (more on that later)
+
+- In many settings, `\(\tau_{SRD}\)` is contrasted to `\(\theta_{SRD}\)` as robustness
+
+---
+
+# Local Randomization RD: Practical Matters
+
+## Similarities with `\(\tau_{SRD}\)`
+
+Local randomization resembles continuity-based RD with `\(p=0\)`, but in practice not
+
+- Balance tests and inference aspects require bootstrapping (more in the afternoon)
+
+## Validation
+
+Similar 5 steps of continuity-based RD (see Chapter 2.3 for details)
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+
+# Discrete Score RD
+
+]
+
+---
+
+# RD Designs with Discrete Scores
+
+&lt;u&gt;Continuity based-RD&lt;/u&gt;: requires a continuous score variable `\(X_i\)`
+
+- Why: discrete support `\(X_i \rightarrow\)` discrete `\(\mathbb{E} \left[ Y_i(j) | X_i \right]\)` `\(\forall j = 0,1\)`
+
+- Can we `\(\tau_{SRD}\)` infer with discrete `\(X_i\)`?
+
+&lt;br&gt;
+
+&lt;u&gt;Illustrative settings&lt;/u&gt;:
+
+- Exam &lt;g&gt;grades&lt;/g&gt; are continuous in principle, but often discrete in practice
+
+- Age-based policies if `\(X_i \equiv\)` years (and window of observation is small)
+
+- Policies based on &lt;o&gt;number of children&lt;/o&gt;
+
+- ...
+
+---
+
+# RD Designs with Discrete Scores
+
+While (eventually) complicated, Discrete Score RD (DSRD) &lt;g&gt;resemble standard RD&lt;/g&gt;
+
+- In practice, observed `\(X_i\)` scores are &lt;o&gt;always discrete&lt;/o&gt; (to some extent)
+
+--
+
+&lt;br&gt;
+
+Hence, &lt;u&gt;DSRD is characterized&lt;/u&gt; when `\(X_i\)`'s support faeture relatively few mass points
+
+- &lt;g&gt;Potentially subjective:&lt;/g&gt; DSRD as robustness (marginal settings)
+
+--
+
+&lt;br&gt;
+
+Regardless, in practice DSRD is better estimated with &lt;u&gt;local randomization RD&lt;/u&gt;
+
+- Why is that so?
+
+---
+
+.left-column[
+
+&lt;u&gt;Recall&lt;/u&gt;: `\(\tau_{SRD}\)` approximates `\(\mathbb{E} \left[ Y_i(j) | X_i \right]\)`
+
+- Each dot: many observ.!
+
+]
+.right-column[
+&lt;img src="figs/cattaneo10.png" style="width: 90%" /&gt;
+]
+
+---
+
+.left-column[
+
+&lt;u&gt;Recall&lt;/u&gt;: `\(\tau_{SRD}\)` approximates `\(\mathbb{E} \left[ Y_i(j) | X_i \right]\)`
+
+- Each dot: many observ.!
+
+What if DSRD?
+
+]
+.right-column[
+&lt;img src="figs/cattaneo4.png" style="width: 90%" /&gt;
+]
+
+---
+
+&lt;u&gt;Raw data can be illustrative&lt;/u&gt;: as many mass points as possible (at least close to `\(c\)`)
+
+.center[
+&lt;img src="figs/cattaneo36.png" style="width: 100%" /&gt;
+]
+
+---
+
+# RD Designs with Discrete Scores: Wrapping Up
+
+&lt;g&gt;Discrete Score&lt;/g&gt; `\(X_i\)` are not a challenge per se
+
+- One only needs to check the "degree of discreteness" of data
+
+- Choose between continuity-based or local randomization
+
+- Or both as of robustness (important: `\(h \neq w\)`)
+
+--
+
+&lt;br&gt;
+
+&lt;u&gt;Side takeaway&lt;/u&gt;: RD settings treat all units with common `\(X_i\)` equally!
+
+- Hence, `\(\hat{\tau}_{SRD}\)` can be retrieved with &lt;o&gt;aggregated data&lt;/o&gt;
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+
+# Kink RD Designs
+
+]
+
+---
+
+# Kink RD Designs: Introduction
+
+.pull-left[
+Recall: `\(\tau_{SRD} \equiv\)` &lt;u&gt;level differences&lt;/u&gt;
+
+- That is, `\(\neq\)` in potential outcomes at `\(c\)`
+
+]
+.pull-right[
+&lt;img src="figs/britto2022.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Kink RD Designs: Introduction
+
+.pull-left[
+Recall: `\(\tau_{SRD} \equiv\)` &lt;u&gt;level differences&lt;/u&gt;
+
+- That is, `\(\neq\)` in potential outcomes at `\(c\)`
+
+&lt;g&gt;Kink RD:&lt;/g&gt; studies changes in the absence of discontinuity
+
+- Focus: change in the slope of `\(\mathbb{E} \left[ Y_i | X_i \right]\)`
+]
+.pull-right[
+&lt;img src="figs/britto2022.png" style="width: 100%" /&gt;
+]
+
+---
+
+# Kink RD Designs: Introduction
+
+Illustration: Kolsrud et al. (2018) "*The optimal timing of unemployment benefits: Theory and evidence from Sweden*"
+
+.center[
+&lt;img src="figs/vinci1.png" style="width: 80%" /&gt;
+]
+
+---
+
+# Kink RD Designs: Formalizing
+
+Intuitively, while the &lt;g&gt;continuity of potential outcomes&lt;/g&gt; assumption is still needed
+`$$\lim_{x \downarrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] = \lim_{x \uparrow c} \mathbb{E}\left[Y_i(j) | X_i = x\right] \quad \forall j = 0,1$$`
+Kink RD requires a &lt;u&gt;discontinuity in the first derivative&lt;/u&gt; of treatment probability &lt;o&gt;or intensity&lt;/o&gt;
+`$$\lim_{x \downarrow c} \frac{d \mathbb{P}(T_i = 1 | X_i = x)}{d x} \neq \lim_{x \uparrow c} \frac{d \mathbb{P}(T_i = 1 | X_i = x)}{dx}$$`
+
+See Card et al. (2017) for more details and careful formalization
+
+---
+
+# Kink RD Designs: Formalizing
+
+`\(\tau_{KRD}\)` is defined as
+`$$\hat{\tau}_{KRD} = \frac{\lim_{x \downarrow c} \frac{\hat{\mathbb{E}} \left[ Y_i | X_i = x \right]}{d x} - \lim_{x \uparrow c} \frac{d \hat{\mathbb{E}} \left[ Y_i | X_i = x \right]}{d x}}{\lim_{x \downarrow c} \frac{\hat{\mathbb{E}} \left[ T_i | X_i = x \right]}{d x} - \lim_{x \uparrow c} \frac{\hat{\mathbb{E}} \left[ D_i | X_i = x \right]}{dx}},$$`
+where `\(T_i\)` can be either &lt;g&gt;binary or in intensity&lt;/g&gt; terms (e.g., value of UI)
+
+&lt;u&gt;Interpretation&lt;/u&gt;: `\(\mathbb{E} \left[ d (Y_i(1) - Y_i(0)) / d x | X_i = x \right]\)`
+
+---
+
+# Kink RD Designs: Formalizing
+
+Kink RD point &lt;g&gt;estimation resembles Sharp RD&lt;/g&gt;. Recall that (if `\(p=1\)`)
+`$$Y_i = \mu_{-} + \mu_{-}^1 (X_i - c) + \gamma^1 (X_i - c) T_i + \tau_{SRD} T_i + \varepsilon_i \quad \forall X_i \in [c-h, c+h]$$`
+&lt;br&gt;
+
+In Kink RD, &lt;u&gt;estimation is identical&lt;/u&gt;! What is the &lt;o&gt;difference?&lt;/o&gt;
+
+--
+
+- Kink RD `\(\rightarrow\)` no discontinuity `\(\rightarrow \hat{\tau}_{SRD} = 0\)`
+
+--
+
+- Kink RD focuses on `\(\gamma^1 \equiv \tau_{KRD}\)`: `\(\Delta\)` first derivative (slope)!
+
+
+---
+
+# Kink RD Designs: Example
+
+Back to Kolsrud et al. (2018), what is the effect of the &lt;g&gt;change in UI generosity&lt;/g&gt; in Sweden?
+
+.center[
+&lt;img src="figs/vinci1.png" style="width: 80%" /&gt;
+]
+
+---
+
+.center[
+&lt;img src="figs/vinci2.png" style="width: 60%" /&gt;
+]
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Differences-in-Discontinuities
+
+# (a.k.a. Diff-in-Disc)
+
+]
+
+---
+
+# Differences-in-Discontinuities: Introduction
+
+In many settings, discontinuities in (potential) outcomes are a &lt;g&gt;regular feature&lt;/g&gt;
+
+- Differences in labor market formality between urban/rural settings
+
+- Criminality rates between high-/low-income neighborhoods
+
+--
+
+What is &lt;o&gt;policies affect&lt;/o&gt; `\(\mathbb{E} \left[ Y_{1}(1) - Y_1(0) | X_i = c \right]\)`?
+
+- Policies to reduce spatial disparities in outcomes?
+
+- Inequality between gender or age groups?
+
+- ...
+
+---
+
+# Differences-in-Discontinuities: Introduction
+
+&lt;u&gt;Diff-in-Disc&lt;/u&gt;: focuses on &lt;g&gt;changes over time!&lt;/g&gt;
+
+- Differences: before/after policy
+
+- Outcome: Discontinuity `\(\hat{\mathbb{E}} \left[ Y_{1}(1) - Y_1(0) | X_i = c \right]\)`
+
+Hence, it &lt;u&gt;resembles a "dynamic RD"&lt;/u&gt;, where `\(\tau_{SRD}\)` changes due to policy
+
+- Many &lt;o&gt;ingredients from differences-in-differences&lt;/o&gt;
+
+- Fast-evolving field, technical aspects beyond the scope of our corse
+
+&lt;u&gt;State-of-art&lt;/u&gt;: De Chaisemartin and d’Haultfoeuille (2020) and Callaway and Sant’Anna (2021)
+
+---
+
+# Differences-in-Discontinuities: Formalizing
+
+Assume a time-varying policy change `\(P_{it} : P_{it+1}=1\)`, and `\(0\)` otherwise. Diff-in-disc `\(\tau_{DDC}\)`:
+`$$\tau_{DDC} \equiv \mathbb{E} \left[ \tau_{SRD, t+1} - \tau_{SRD, t} | X_i = c \right]$$`
+and its estimation is a &lt;o&gt;panel-and-interacted&lt;/o&gt; Sharp RD regression:
+`\begin{align}
+Y_{it} &amp;= \mu_{-} + \sum\limits_{r = 1}^p \mu_{-}^r (X_{it} - c)^r + \sum\limits_{r = 1}^p \gamma^r (X_{it} - c)^r T_i + \sum\limits_{r = 1}^p \lambda^r (X_{it} - c)^r T_i P_{it} + \\
+&amp;+ \sum\limits_{r = 1}^p \gamma^r (X_{it} - c)^r P_{it} + \tau_{SRD,t} T_i + \underbrace{\tau_{DDC} T_i P_{it}}_{\text{Change in } \tau_{SRD} \text{ after policy}} + \varepsilon_i
+\end{align}`
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*"
+
+&lt;u&gt;Context&lt;/u&gt;: high levels of &lt;g&gt;deforestation in the Brazilian amazon&lt;/g&gt;
+
+- Early 2000's: slack enforcement from Brazilian government
+
+- Around 2004: &lt;o&gt;strict rules and enforcement&lt;/o&gt;
+
+&lt;br&gt;
+
+What are the **effects of these policies**?
+
+- RD setting: `\(\neq\)` defor. rates inside/outside Brazilian border
+
+- Diff-in-Disc: how have these `\(\neq\)` changed after 2004 policy?
+
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*": &lt;o&gt;**Spatial RD**&lt;/o&gt;
+
+.pull-left[
+.center[&lt;img src="figs/burges10.png" style="width: 90%" /&gt;]
+]
+.pull-right[
+.center[&lt;img src="figs/burges11.png" style="width: 90%" /&gt;]
+]
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*": &lt;o&gt;**Spatial RD**&lt;/o&gt;
+
+.pull-left[
+.center[&lt;img src="figs/burges13.png" style="width: 90%" /&gt;]
+]
+.pull-right[
+.center[&lt;img src="figs/burges11.png" style="width: 90%" /&gt;]
+]
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*": &lt;o&gt;**Spatial RD**&lt;/o&gt;
+
+.pull-left[
+.center[&lt;img src="figs/burges14.png" style="width: 90%" /&gt;]
+]
+.pull-right[
+.center[&lt;img src="figs/burges11.png" style="width: 90%" /&gt;]
+]
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*": &lt;o&gt;**Spatial RD**&lt;/o&gt;
+
+.pull-left[
+.center[&lt;img src="figs/burges15.png" style="width: 90%" /&gt;]
+]
+.pull-right[
+.center[&lt;img src="figs/burges11.png" style="width: 90%" /&gt;]
+]
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*": &lt;o&gt;**Spatial RD**&lt;/o&gt;
+
+.pull-left[
+.center[&lt;img src="figs/burges16.png" style="width: 90%" /&gt;]
+]
+.pull-right[
+.center[&lt;img src="figs/burges11.png" style="width: 90%" /&gt;]
+]
+
+---
+
+# Differences-in-Discontinuities: Illustration
+
+Burges et al. (2023) "*National Borders and the Conservation of Nature*": &lt;o&gt;**Spatial RD**&lt;/o&gt;
+
+.pull-left[
+.center[&lt;img src="figs/burges12.png" style="width: 100%" /&gt;]
+]
+.pull-right[
+.center[&lt;img src="figs/burges11.png" style="width: 90%" /&gt;]
+]
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Regression Discontinuity Designs
+
+# Wrapping Up
+
+]
+
+---
+
+# RD Design Journey: Final Remarks
+
+&lt;u&gt;Today&lt;/u&gt;: extensions and &lt;g&gt;frontier methods&lt;/g&gt; in RD Designs
+
+- More generally, we learned in the past 5 days RD theory and tools
+
+--
+
+&lt;br&gt;
+
+&lt;u&gt;Main takeaway&lt;/u&gt;: RD as a flexible, &lt;o&gt;powerful tool for causal inference&lt;/o&gt;
+
+- Hope it is usefull in your careers!
+
+
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.center[
+# Thank you and
+
+# see you later!
+
+]
+
+---
+
+# References
+
+- Burgess, R., Costa, F. and Olken, B.A., 2023. National Borders and the Conservation of Nature. OSF, Available at OSF: https://osf. io/preprints/socarxiv/67xg5.
+
+- Callaway, B. and Sant’Anna, P.H., 2021. Difference-in-differences with multiple time periods. *Journal of Econometrics*, 225(2), pp.200-230.
+
+- Card, D., Lee, D.S., Pei, Z. and Weber, A., 2017. Regression kink design: Theory and practice. In Regression discontinuity designs: Theory and applications (pp. 341-382). *Emerald Publishing Limited*.
+
+- Cattaneo, M.D., Frandsen, B.R. and Titiunik, R., 2015. Randomization inference in the regression discontinuity design: An application to party advantages in the US Senate. *Journal of Causal Inference*, 3(1), pp.1-24.
+
+---
+
+# References
+
+- De Chaisemartin, C. and d’Haultfoeuille, X., 2020. Two-way fixed effects estimators with heterogeneous treatment effects. *American Economic Review*, 110(9), pp.2964-2996.
+
+- Kolsrud, J., Landais, C., Nilsson, P. and Spinnewijn, J., 2018. The optimal timing of unemployment benefits: Theory and evidence from Sweden. *American Economic Review*, 108(4-5), pp.985-1033.
+
+- Thistlethwaite, D.L. and Campbell, D.T., 1960. Regression-discontinuity analysis: An alternative to the ex post facto experiment. *Journal of Educational Psychology*, 51(6), p.309.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

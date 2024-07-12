@@ -160,7 +160,7 @@ If the former, `rdmc` &lt;g&gt;is not enough:&lt;/g&gt; `\(\mathbf{b}\)` is mult
 
 
 ```r
-rdms(Y, X1, X2, T, C1, C2) # T is the treatment = 1(X &gt; 0)
+rdms(Y, X, X2, zvar = T, C, C2) # T is the treatment = 1(X &gt; 0)
 ```
 ## Stata version
 
@@ -189,9 +189,9 @@ Suppose we want the three `\(\tau_{SMS}(b)\)`:
 
 ```r
 T &lt;- (X1&gt;0 &amp; X2&gt;0) # treat dummy
-C1 &lt;- c(0, 0, 50) # X2 coordinates
-C2 &lt;- c(0, 30, 0) # X1 coordinates
-rdms(Y, X1, X2, T, C1, C2)
+C &lt;- c(0, 0, 50) # X1 coordinates
+C2 &lt;- c(0, 30, 0) # X2 coordinates
+rdms(Y, X, X, zvar = T, C, C2)
 ```
 
 ]
@@ -202,13 +202,51 @@ rdms(Y, X1, X2, T, C1, C2)
 
 ---
 
+# Multi-score RD in Practice
+
 
 ```r
 library(rdmulti)
 dset &lt;- read.csv('data_lodono_multis.csv')
-cvec2 &lt;- c(0, 30, 0)
 cvec &lt;- c(0, 0, 50)
-summary(rdms(Y = dset$spadies_any, X = dset$running_saber11, X2 = dset$running_sisben,zvar = dset$tr, C = cvec, C2 = cvec2))
+cvec2 &lt;- c(0, 30, 0)
+reg &lt;- rdms(
+  Y = dset$spadies_any, 
+  X = dset$running_saber11, 
+  X2 = dset$running_sisben,
+  zvar = dset$tr, 
+  C = cvec, 
+  C2 = cvec2
+  )
+```
+
+---
+
+
+```
+## 
+## ================================================================================
+## Cutoff           Coef.    P-value          95% CI          hl       hr        Nh        
+## ================================================================================
+## (0.00,0.00)      0.323   0.000     0.293     0.379     30.701   30.701    41771     
+## (0.00,30.00)      0.315   0.000     0.286     0.356     42.583   42.583    71580     
+## (50.00,0.00)      0.229   0.000     0.144     0.351     27.762   27.762    5057      
+## ================================================================================
+```
+
+```
+##       Length Class  Mode   
+## B     4      -none- numeric
+## V     4      -none- numeric
+## Coefs 4      -none- numeric
+## V_cl  4      -none- numeric
+## Nh    8      -none- numeric
+## CI    8      -none- numeric
+## CI_cl 8      -none- numeric
+## H     8      -none- numeric
+## Bbw   8      -none- numeric
+## Pv    4      -none- numeric
+## Pv_cl 4      -none- numeric
 ```
 
 ---
@@ -232,11 +270,11 @@ Before starting, recall:
 
 - Corrections on practice 02 and 03: discussed tomorrow
 
-- &lt;u&gt;**Deadline**&lt;/u&gt; Monday 14h00 CET!
-
-Any &lt;o&gt;**questions?**&lt;/o&gt;
+- &lt;u&gt;**Deadline**&lt;/u&gt; Friday July 19 at 17h00 CET!
 
 --
+
+Any &lt;o&gt;**questions?**&lt;/o&gt;
 
 &lt;g&gt;Also:&lt;/g&gt; evaluation survey (please do it!)
 
@@ -277,7 +315,7 @@ Estimate &lt;g&gt;Fuzzy RD:&lt;/g&gt;
 ## [1] "Mass points detected in the running variable."
 ```
 
-&lt;img src="figs/class04/unnamed-chunk-12-1.png" width="80%" /&gt;
+&lt;img src="figs/class04/unnamed-chunk-13-1.png" width="80%" /&gt;
 ]
 
 ---
